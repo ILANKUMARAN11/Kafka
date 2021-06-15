@@ -3,9 +3,6 @@
   "name" : "Person",
   "namespace" : "avro.schema",
   "fields" : [ {
-    "name" : "Name",
-    "type" : [ "null", "string" ]
-  }, {
     "name" : "address",
     "type" : [ "null", {
       "type" : "record",
@@ -25,14 +22,14 @@
     "name" : "emailId",
     "type" : [ "null", "string" ]
   }, {
+    "name" : "fullName",
+    "type" : [ "null", "string" ]
+  }, {
     "name" : "id",
     "type" : [ "null", {
       "type" : "long",
       "java-class" : "java.lang.Long"
     } ]
-  }, {
-    "name" : "name",
-    "type" : [ "null", "string" ]
   }, {
     "name" : "phoneNo",
     "type" : [ "null", "string" ]

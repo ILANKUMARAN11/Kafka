@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Person {
     Long id;
-    String Name;
+    String fullName;
     String emailId;
     String phoneNo;
     Address address;

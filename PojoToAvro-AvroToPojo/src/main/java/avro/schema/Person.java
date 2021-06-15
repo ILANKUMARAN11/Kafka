@@ -14,8 +14,8 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class Person extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -9206781287460477004L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Person\",\"namespace\":\"avro.schema\",\"fields\":[{\"name\":\"Name\",\"type\":[\"null\",\"string\"]},{\"name\":\"address\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Address\",\"fields\":[{\"name\":\"doorNo\",\"type\":[\"null\",\"string\"]},{\"name\":\"pinCode\",\"type\":[\"null\",\"string\"]},{\"name\":\"street\",\"type\":[\"null\",\"string\"]}]}]},{\"name\":\"emailId\",\"type\":[\"null\",\"string\"]},{\"name\":\"id\",\"type\":[\"null\",{\"type\":\"long\",\"java-class\":\"java.lang.Long\"}]},{\"name\":\"name\",\"type\":[\"null\",\"string\"]},{\"name\":\"phoneNo\",\"type\":[\"null\",\"string\"]}]}");
+  private static final long serialVersionUID = -4488370755050942764L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Person\",\"namespace\":\"avro.schema\",\"fields\":[{\"name\":\"address\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Address\",\"fields\":[{\"name\":\"doorNo\",\"type\":[\"null\",\"string\"]},{\"name\":\"pinCode\",\"type\":[\"null\",\"string\"]},{\"name\":\"street\",\"type\":[\"null\",\"string\"]}]}]},{\"name\":\"emailId\",\"type\":[\"null\",\"string\"]},{\"name\":\"fullName\",\"type\":[\"null\",\"string\"]},{\"name\":\"id\",\"type\":[\"null\",{\"type\":\"long\",\"java-class\":\"java.lang.Long\"}]},{\"name\":\"phoneNo\",\"type\":[\"null\",\"string\"]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -71,11 +71,10 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
     return DECODER.decode(b);
   }
 
-   private java.lang.CharSequence Name;
    private avro.schema.Address address;
    private java.lang.CharSequence emailId;
+   private java.lang.CharSequence fullName;
    private java.lang.Long id;
-   private java.lang.CharSequence name;
    private java.lang.CharSequence phoneNo;
 
   /**
@@ -87,19 +86,17 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
 
   /**
    * All-args constructor.
-   * @param Name The new value for Name
    * @param address The new value for address
    * @param emailId The new value for emailId
+   * @param fullName The new value for fullName
    * @param id The new value for id
-   * @param name The new value for name
    * @param phoneNo The new value for phoneNo
    */
-  public Person(java.lang.CharSequence Name, avro.schema.Address address, java.lang.CharSequence emailId, java.lang.Long id, java.lang.CharSequence name, java.lang.CharSequence phoneNo) {
-    this.Name = Name;
+  public Person(avro.schema.Address address, java.lang.CharSequence emailId, java.lang.CharSequence fullName, java.lang.Long id, java.lang.CharSequence phoneNo) {
     this.address = address;
     this.emailId = emailId;
+    this.fullName = fullName;
     this.id = id;
-    this.name = name;
     this.phoneNo = phoneNo;
   }
 
@@ -108,12 +105,11 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
   // Used by DatumWriter.  Applications should not call.
   public java.lang.Object get(int field$) {
     switch (field$) {
-    case 0: return Name;
-    case 1: return address;
-    case 2: return emailId;
+    case 0: return address;
+    case 1: return emailId;
+    case 2: return fullName;
     case 3: return id;
-    case 4: return name;
-    case 5: return phoneNo;
+    case 4: return phoneNo;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -122,31 +118,13 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: Name = (java.lang.CharSequence)value$; break;
-    case 1: address = (avro.schema.Address)value$; break;
-    case 2: emailId = (java.lang.CharSequence)value$; break;
+    case 0: address = (avro.schema.Address)value$; break;
+    case 1: emailId = (java.lang.CharSequence)value$; break;
+    case 2: fullName = (java.lang.CharSequence)value$; break;
     case 3: id = (java.lang.Long)value$; break;
-    case 4: name = (java.lang.CharSequence)value$; break;
-    case 5: phoneNo = (java.lang.CharSequence)value$; break;
+    case 4: phoneNo = (java.lang.CharSequence)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
-  }
-
-  /**
-   * Gets the value of the 'Name' field.
-   * @return The value of the 'Name' field.
-   */
-  public java.lang.CharSequence getName$1() {
-    return Name;
-  }
-
-
-  /**
-   * Sets the value of the 'Name' field.
-   * @param value the value to set.
-   */
-  public void setName$1(java.lang.CharSequence value) {
-    this.Name = value;
   }
 
   /**
@@ -184,6 +162,23 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
   }
 
   /**
+   * Gets the value of the 'fullName' field.
+   * @return The value of the 'fullName' field.
+   */
+  public java.lang.CharSequence getFullName() {
+    return fullName;
+  }
+
+
+  /**
+   * Sets the value of the 'fullName' field.
+   * @param value the value to set.
+   */
+  public void setFullName(java.lang.CharSequence value) {
+    this.fullName = value;
+  }
+
+  /**
    * Gets the value of the 'id' field.
    * @return The value of the 'id' field.
    */
@@ -198,23 +193,6 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
    */
   public void setId(java.lang.Long value) {
     this.id = value;
-  }
-
-  /**
-   * Gets the value of the 'name' field.
-   * @return The value of the 'name' field.
-   */
-  public java.lang.CharSequence getName$0() {
-    return name;
-  }
-
-
-  /**
-   * Sets the value of the 'name' field.
-   * @param value the value to set.
-   */
-  public void setName$0(java.lang.CharSequence value) {
-    this.name = value;
   }
 
   /**
@@ -275,12 +253,11 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<Person>
     implements org.apache.avro.data.RecordBuilder<Person> {
 
-    private java.lang.CharSequence Name;
     private avro.schema.Address address;
     private avro.schema.Address.Builder addressBuilder;
     private java.lang.CharSequence emailId;
+    private java.lang.CharSequence fullName;
     private java.lang.Long id;
-    private java.lang.CharSequence name;
     private java.lang.CharSequence phoneNo;
 
     /** Creates a new Builder */
@@ -294,32 +271,28 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
      */
     private Builder(avro.schema.Person.Builder other) {
       super(other);
-      if (isValidValue(fields()[0], other.Name)) {
-        this.Name = data().deepCopy(fields()[0].schema(), other.Name);
+      if (isValidValue(fields()[0], other.address)) {
+        this.address = data().deepCopy(fields()[0].schema(), other.address);
         fieldSetFlags()[0] = other.fieldSetFlags()[0];
-      }
-      if (isValidValue(fields()[1], other.address)) {
-        this.address = data().deepCopy(fields()[1].schema(), other.address);
-        fieldSetFlags()[1] = other.fieldSetFlags()[1];
       }
       if (other.hasAddressBuilder()) {
         this.addressBuilder = avro.schema.Address.newBuilder(other.getAddressBuilder());
       }
-      if (isValidValue(fields()[2], other.emailId)) {
-        this.emailId = data().deepCopy(fields()[2].schema(), other.emailId);
+      if (isValidValue(fields()[1], other.emailId)) {
+        this.emailId = data().deepCopy(fields()[1].schema(), other.emailId);
+        fieldSetFlags()[1] = other.fieldSetFlags()[1];
+      }
+      if (isValidValue(fields()[2], other.fullName)) {
+        this.fullName = data().deepCopy(fields()[2].schema(), other.fullName);
         fieldSetFlags()[2] = other.fieldSetFlags()[2];
       }
       if (isValidValue(fields()[3], other.id)) {
         this.id = data().deepCopy(fields()[3].schema(), other.id);
         fieldSetFlags()[3] = other.fieldSetFlags()[3];
       }
-      if (isValidValue(fields()[4], other.name)) {
-        this.name = data().deepCopy(fields()[4].schema(), other.name);
+      if (isValidValue(fields()[4], other.phoneNo)) {
+        this.phoneNo = data().deepCopy(fields()[4].schema(), other.phoneNo);
         fieldSetFlags()[4] = other.fieldSetFlags()[4];
-      }
-      if (isValidValue(fields()[5], other.phoneNo)) {
-        this.phoneNo = data().deepCopy(fields()[5].schema(), other.phoneNo);
-        fieldSetFlags()[5] = other.fieldSetFlags()[5];
       }
     }
 
@@ -329,71 +302,27 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
      */
     private Builder(avro.schema.Person other) {
       super(SCHEMA$);
-      if (isValidValue(fields()[0], other.Name)) {
-        this.Name = data().deepCopy(fields()[0].schema(), other.Name);
+      if (isValidValue(fields()[0], other.address)) {
+        this.address = data().deepCopy(fields()[0].schema(), other.address);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.address)) {
-        this.address = data().deepCopy(fields()[1].schema(), other.address);
+      this.addressBuilder = null;
+      if (isValidValue(fields()[1], other.emailId)) {
+        this.emailId = data().deepCopy(fields()[1].schema(), other.emailId);
         fieldSetFlags()[1] = true;
       }
-      this.addressBuilder = null;
-      if (isValidValue(fields()[2], other.emailId)) {
-        this.emailId = data().deepCopy(fields()[2].schema(), other.emailId);
+      if (isValidValue(fields()[2], other.fullName)) {
+        this.fullName = data().deepCopy(fields()[2].schema(), other.fullName);
         fieldSetFlags()[2] = true;
       }
       if (isValidValue(fields()[3], other.id)) {
         this.id = data().deepCopy(fields()[3].schema(), other.id);
         fieldSetFlags()[3] = true;
       }
-      if (isValidValue(fields()[4], other.name)) {
-        this.name = data().deepCopy(fields()[4].schema(), other.name);
+      if (isValidValue(fields()[4], other.phoneNo)) {
+        this.phoneNo = data().deepCopy(fields()[4].schema(), other.phoneNo);
         fieldSetFlags()[4] = true;
       }
-      if (isValidValue(fields()[5], other.phoneNo)) {
-        this.phoneNo = data().deepCopy(fields()[5].schema(), other.phoneNo);
-        fieldSetFlags()[5] = true;
-      }
-    }
-
-    /**
-      * Gets the value of the 'Name' field.
-      * @return The value.
-      */
-    public java.lang.CharSequence getName$1() {
-      return Name;
-    }
-
-
-    /**
-      * Sets the value of the 'Name' field.
-      * @param value The value of 'Name'.
-      * @return This builder.
-      */
-    public avro.schema.Person.Builder setName$1(java.lang.CharSequence value) {
-      validate(fields()[0], value);
-      this.Name = value;
-      fieldSetFlags()[0] = true;
-      return this;
-    }
-
-    /**
-      * Checks whether the 'Name' field has been set.
-      * @return True if the 'Name' field has been set, false otherwise.
-      */
-    public boolean hasName$1() {
-      return fieldSetFlags()[0];
-    }
-
-
-    /**
-      * Clears the value of the 'Name' field.
-      * @return This builder.
-      */
-    public avro.schema.Person.Builder clearName$1() {
-      Name = null;
-      fieldSetFlags()[0] = false;
-      return this;
     }
 
     /**
@@ -411,10 +340,10 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
       * @return This builder.
       */
     public avro.schema.Person.Builder setAddress(avro.schema.Address value) {
-      validate(fields()[1], value);
+      validate(fields()[0], value);
       this.addressBuilder = null;
       this.address = value;
-      fieldSetFlags()[1] = true;
+      fieldSetFlags()[0] = true;
       return this;
     }
 
@@ -423,7 +352,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
       * @return True if the 'address' field has been set, false otherwise.
       */
     public boolean hasAddress() {
-      return fieldSetFlags()[1];
+      return fieldSetFlags()[0];
     }
 
     /**
@@ -467,7 +396,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
     public avro.schema.Person.Builder clearAddress() {
       address = null;
       addressBuilder = null;
-      fieldSetFlags()[1] = false;
+      fieldSetFlags()[0] = false;
       return this;
     }
 
@@ -486,9 +415,9 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
       * @return This builder.
       */
     public avro.schema.Person.Builder setEmailId(java.lang.CharSequence value) {
-      validate(fields()[2], value);
+      validate(fields()[1], value);
       this.emailId = value;
-      fieldSetFlags()[2] = true;
+      fieldSetFlags()[1] = true;
       return this;
     }
 
@@ -497,7 +426,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
       * @return True if the 'emailId' field has been set, false otherwise.
       */
     public boolean hasEmailId() {
-      return fieldSetFlags()[2];
+      return fieldSetFlags()[1];
     }
 
 
@@ -507,6 +436,46 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
       */
     public avro.schema.Person.Builder clearEmailId() {
       emailId = null;
+      fieldSetFlags()[1] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'fullName' field.
+      * @return The value.
+      */
+    public java.lang.CharSequence getFullName() {
+      return fullName;
+    }
+
+
+    /**
+      * Sets the value of the 'fullName' field.
+      * @param value The value of 'fullName'.
+      * @return This builder.
+      */
+    public avro.schema.Person.Builder setFullName(java.lang.CharSequence value) {
+      validate(fields()[2], value);
+      this.fullName = value;
+      fieldSetFlags()[2] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'fullName' field has been set.
+      * @return True if the 'fullName' field has been set, false otherwise.
+      */
+    public boolean hasFullName() {
+      return fieldSetFlags()[2];
+    }
+
+
+    /**
+      * Clears the value of the 'fullName' field.
+      * @return This builder.
+      */
+    public avro.schema.Person.Builder clearFullName() {
+      fullName = null;
       fieldSetFlags()[2] = false;
       return this;
     }
@@ -552,46 +521,6 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
     }
 
     /**
-      * Gets the value of the 'name' field.
-      * @return The value.
-      */
-    public java.lang.CharSequence getName$0() {
-      return name;
-    }
-
-
-    /**
-      * Sets the value of the 'name' field.
-      * @param value The value of 'name'.
-      * @return This builder.
-      */
-    public avro.schema.Person.Builder setName$0(java.lang.CharSequence value) {
-      validate(fields()[4], value);
-      this.name = value;
-      fieldSetFlags()[4] = true;
-      return this;
-    }
-
-    /**
-      * Checks whether the 'name' field has been set.
-      * @return True if the 'name' field has been set, false otherwise.
-      */
-    public boolean hasName$0() {
-      return fieldSetFlags()[4];
-    }
-
-
-    /**
-      * Clears the value of the 'name' field.
-      * @return This builder.
-      */
-    public avro.schema.Person.Builder clearName$0() {
-      name = null;
-      fieldSetFlags()[4] = false;
-      return this;
-    }
-
-    /**
       * Gets the value of the 'phoneNo' field.
       * @return The value.
       */
@@ -606,9 +535,9 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
       * @return This builder.
       */
     public avro.schema.Person.Builder setPhoneNo(java.lang.CharSequence value) {
-      validate(fields()[5], value);
+      validate(fields()[4], value);
       this.phoneNo = value;
-      fieldSetFlags()[5] = true;
+      fieldSetFlags()[4] = true;
       return this;
     }
 
@@ -617,7 +546,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
       * @return True if the 'phoneNo' field has been set, false otherwise.
       */
     public boolean hasPhoneNo() {
-      return fieldSetFlags()[5];
+      return fieldSetFlags()[4];
     }
 
 
@@ -627,7 +556,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
       */
     public avro.schema.Person.Builder clearPhoneNo() {
       phoneNo = null;
-      fieldSetFlags()[5] = false;
+      fieldSetFlags()[4] = false;
       return this;
     }
 
@@ -636,7 +565,6 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
     public Person build() {
       try {
         Person record = new Person();
-        record.Name = fieldSetFlags()[0] ? this.Name : (java.lang.CharSequence) defaultValue(fields()[0]);
         if (addressBuilder != null) {
           try {
             record.address = this.addressBuilder.build();
@@ -645,12 +573,12 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
             throw e;
           }
         } else {
-          record.address = fieldSetFlags()[1] ? this.address : (avro.schema.Address) defaultValue(fields()[1]);
+          record.address = fieldSetFlags()[0] ? this.address : (avro.schema.Address) defaultValue(fields()[0]);
         }
-        record.emailId = fieldSetFlags()[2] ? this.emailId : (java.lang.CharSequence) defaultValue(fields()[2]);
+        record.emailId = fieldSetFlags()[1] ? this.emailId : (java.lang.CharSequence) defaultValue(fields()[1]);
+        record.fullName = fieldSetFlags()[2] ? this.fullName : (java.lang.CharSequence) defaultValue(fields()[2]);
         record.id = fieldSetFlags()[3] ? this.id : (java.lang.Long) defaultValue(fields()[3]);
-        record.name = fieldSetFlags()[4] ? this.name : (java.lang.CharSequence) defaultValue(fields()[4]);
-        record.phoneNo = fieldSetFlags()[5] ? this.phoneNo : (java.lang.CharSequence) defaultValue(fields()[5]);
+        record.phoneNo = fieldSetFlags()[4] ? this.phoneNo : (java.lang.CharSequence) defaultValue(fields()[4]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
@@ -683,14 +611,6 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
   @Override public void customEncode(org.apache.avro.io.Encoder out)
     throws java.io.IOException
   {
-    if (this.Name == null) {
-      out.writeIndex(0);
-      out.writeNull();
-    } else {
-      out.writeIndex(1);
-      out.writeString(this.Name);
-    }
-
     if (this.address == null) {
       out.writeIndex(0);
       out.writeNull();
@@ -707,20 +627,20 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
       out.writeString(this.emailId);
     }
 
+    if (this.fullName == null) {
+      out.writeIndex(0);
+      out.writeNull();
+    } else {
+      out.writeIndex(1);
+      out.writeString(this.fullName);
+    }
+
     if (this.id == null) {
       out.writeIndex(0);
       out.writeNull();
     } else {
       out.writeIndex(1);
       out.writeLong(this.id);
-    }
-
-    if (this.name == null) {
-      out.writeIndex(0);
-      out.writeNull();
-    } else {
-      out.writeIndex(1);
-      out.writeString(this.name);
     }
 
     if (this.phoneNo == null) {
@@ -740,13 +660,6 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
     if (fieldOrder == null) {
       if (in.readIndex() != 1) {
         in.readNull();
-        this.Name = null;
-      } else {
-        this.Name = in.readString(this.Name instanceof Utf8 ? (Utf8)this.Name : null);
-      }
-
-      if (in.readIndex() != 1) {
-        in.readNull();
         this.address = null;
       } else {
         if (this.address == null) {
@@ -764,16 +677,16 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
 
       if (in.readIndex() != 1) {
         in.readNull();
-        this.id = null;
+        this.fullName = null;
       } else {
-        this.id = in.readLong();
+        this.fullName = in.readString(this.fullName instanceof Utf8 ? (Utf8)this.fullName : null);
       }
 
       if (in.readIndex() != 1) {
         in.readNull();
-        this.name = null;
+        this.id = null;
       } else {
-        this.name = in.readString(this.name instanceof Utf8 ? (Utf8)this.name : null);
+        this.id = in.readLong();
       }
 
       if (in.readIndex() != 1) {
@@ -784,18 +697,9 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
       }
 
     } else {
-      for (int i = 0; i < 6; i++) {
+      for (int i = 0; i < 5; i++) {
         switch (fieldOrder[i].pos()) {
         case 0:
-          if (in.readIndex() != 1) {
-            in.readNull();
-            this.Name = null;
-          } else {
-            this.Name = in.readString(this.Name instanceof Utf8 ? (Utf8)this.Name : null);
-          }
-          break;
-
-        case 1:
           if (in.readIndex() != 1) {
             in.readNull();
             this.address = null;
@@ -807,12 +711,21 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
           }
           break;
 
-        case 2:
+        case 1:
           if (in.readIndex() != 1) {
             in.readNull();
             this.emailId = null;
           } else {
             this.emailId = in.readString(this.emailId instanceof Utf8 ? (Utf8)this.emailId : null);
+          }
+          break;
+
+        case 2:
+          if (in.readIndex() != 1) {
+            in.readNull();
+            this.fullName = null;
+          } else {
+            this.fullName = in.readString(this.fullName instanceof Utf8 ? (Utf8)this.fullName : null);
           }
           break;
 
@@ -826,15 +739,6 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
           break;
 
         case 4:
-          if (in.readIndex() != 1) {
-            in.readNull();
-            this.name = null;
-          } else {
-            this.name = in.readString(this.name instanceof Utf8 ? (Utf8)this.name : null);
-          }
-          break;
-
-        case 5:
           if (in.readIndex() != 1) {
             in.readNull();
             this.phoneNo = null;
