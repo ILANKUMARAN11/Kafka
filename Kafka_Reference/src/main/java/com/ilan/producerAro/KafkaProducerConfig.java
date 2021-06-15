@@ -1,9 +1,8 @@
-package com.ilan.config.kafka.avroProducer;
+package com.ilan.producerAro;
 
 import avro.schema.Person;
 import com.ilan.serializer.AvroSerializer;
 import io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig;
-import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Qualifier;

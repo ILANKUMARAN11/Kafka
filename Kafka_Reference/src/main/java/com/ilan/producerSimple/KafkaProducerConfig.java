@@ -1,4 +1,4 @@
-package com.ilan.config.kafka.simpleProducer;
+package com.ilan.producerSimple;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.IntegerSerializer;

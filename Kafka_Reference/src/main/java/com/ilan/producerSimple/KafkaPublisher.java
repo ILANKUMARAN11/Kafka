@@ -1,6 +1,5 @@
-package com.ilan.config.kafka.avroProducer;
+package com.ilan.producerSimple;
 
-import avro.schema.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,27 +12,27 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 @Order(2)
-@Component("AvroKafkaPublisher")
+@Component("SimpleKafkaPublisher")
 @Slf4j
 public class KafkaPublisher {
 
-    @Qualifier("AvroKafkaTemplate")
+    @Qualifier("SimpleKafkaTemplate")
     @Autowired
-    KafkaTemplate<String, Person> kafkaTemplate;
+    KafkaTemplate<Integer, String> kafkaTemplate;
 
     @Value("${kafka.topic-name}")
     String topicName;
 
 
-    public void sendMessageWithCallback(String key, Person person) {
-        ListenableFuture<SendResult<String, Person>> future =
-                kafkaTemplate.send(topicName,key, person);
+    public void sendMessageWithCallback(Integer key,String message) {
+        ListenableFuture<SendResult<Integer, String>> future =
+                kafkaTemplate.send(topicName,key,message);
 
-        future.addCallback(new ListenableFutureCallback<SendResult<String, Person>>() {
+        future.addCallback(new ListenableFutureCallback<SendResult<Integer, String>>() {
             @Override
-            public void onSuccess(SendResult<String, Person> result) {
+            public void onSuccess(SendResult<Integer, String> result) {
                 log.info("Message [{}] delivered to Topic [{}], Partition number [{}] sitting on offset [{}]",
-                        person.toString(),
+                        message,
                         result.getRecordMetadata().topic(),
                         result.getRecordMetadata().partition(),
                         result.getRecordMetadata().offset());
@@ -42,10 +41,11 @@ public class KafkaPublisher {
             @Override
             public void onFailure(Throwable ex) {
                 log.warn("Unable to deliver message [{}]. {}",
-                        person.toString(),
+                        message,
                         ex.getMessage());
             }
         });
+
     }
 }
 

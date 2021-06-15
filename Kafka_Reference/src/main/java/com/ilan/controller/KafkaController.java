@@ -13,11 +13,11 @@ public class KafkaController {
 
     @Qualifier("SimpleKafkaPublisher")
     @Autowired
-    com.ilan.config.kafka.simpleProducer.KafkaPublisher kafkaPublisher;
+    com.ilan.producerSimple.KafkaPublisher kafkaPublisher;
 
     @Qualifier("AvroKafkaPublisher")
     @Autowired
-    com.ilan.config.kafka.avroProducer.KafkaPublisher avroPublisher;
+    com.ilan.producerAro.KafkaPublisher avroPublisher;
 
     @PostMapping(value = "/simple/string/{key}/{message}")
     public void sendSimpleMessage(@PathVariable Integer key, @PathVariable String message){
