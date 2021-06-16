@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Order(1)
 @Component
-@KafkaListener(id = "Employee_group_id", topics = "JustSimple")
+@KafkaListener(id = "simple-group-id", topics = "JustSimple")
 @Slf4j
 class KafkaClassListener {
 
