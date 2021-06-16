@@ -1,5 +1,6 @@
 package com.ilan.controller;
 
+import com.ilan.config.KafkaProperties;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -16,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("/send/simple")
 public class SimpleController {
 
-    @Value("${kafka.simple-Topic}")
-    String topicName;
+    @Autowired
+    KafkaProperties kafkaProperties;
 
     @Qualifier("SimpleKafkaPublisher")
     @Autowired
@@ -34,7 +35,7 @@ public class SimpleController {
     @PostMapping(value = "/string/{key}/{message}")
     public void sendSimpleMessage(@ApiParam(value = "Message Key", required = true, example = "12")@PathVariable Integer key,
                                   @ApiParam(value = "Message Data", required = true, defaultValue = "ILAN KUMARAN")@PathVariable String message){
-          kafkaPublisher.sendMessageWithCallback(topicName, key, message);
+          kafkaPublisher.sendMessageWithCallback(kafkaProperties.getSimpleTopicName(), key, message);
     }
 
 

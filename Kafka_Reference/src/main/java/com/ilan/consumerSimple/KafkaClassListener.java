@@ -6,7 +6,6 @@ import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-@Order(1)
 @Component
 @KafkaListener(id = "simple-group-id", topics = "JustSimple")
 @Slf4j

@@ -17,14 +17,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class ConsumerAvro {
+public class ConsumerAvroListener {
 
     @Autowired
     KafkaProperties kafkaProperties;
 
-    @KafkaListener(topics = "Employee")
-    void listener(Employee employee) {
-        log.info("Listener [{}]", employee.toString());
+//    @KafkaListener(topics = "Employee")
+//    void listener(Employee employee) {
+//        log.info("Listener [{}]", employee.toString());
+//    }
+
+    @KafkaListener(topics = "Employee", groupId = "Employee_group_id", containerFactory = "kafkaAvroListenerContainerFactory")
+    void listenerWithMessageConverter(Employee employee) {
+        log.info("Message Converter Employee Listener ::::::: [{}]", employee);
     }
 
 //    @KafkaListener(topics = { "reflectoring-1", "reflectoring-2" }, groupId = "reflectoring-group-2")
@@ -51,8 +56,5 @@ public class ConsumerAvro {
 //        return "This is a reply sent to 'reflectoring-2' topic after receiving message at 'reflectoring-others' topic";
 //    }
 //
-//    @KafkaListener(id = "1", topics = "reflectoring-user", groupId = "reflectoring-user-mc", containerFactory = "kafkaJsonListenerContainerFactory")
-//    void listenerWithMessageConverter(Employee employee) {
-//        log.info("MessageConverterUserListener [{}]", employee);
-//    }
+
 }

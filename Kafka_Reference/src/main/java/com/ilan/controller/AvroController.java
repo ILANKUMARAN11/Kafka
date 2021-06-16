@@ -1,5 +1,6 @@
 package com.ilan.controller;
 
+import com.ilan.config.KafkaProperties;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -16,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("/send/avro")
 public class AvroController {
 
-    @Value("${kafka.avro-Topic}")
-    String topicName;
+    @Autowired
+    KafkaProperties kafkaProperties;
 
     @Qualifier("AvroKafkaPublisher")
     @Autowired
@@ -44,6 +45,6 @@ public class AvroController {
                 setPhoneNo(employee.getPhoneNo()).
                 setAddress(address).
                 build();
-        avroPublisher.sendMessageWithCallback(topicName, key, avroPerson);
+        avroPublisher.sendMessageWithCallback(kafkaProperties.getEmployeeTopicName(), key, avroPerson);
     }
 }

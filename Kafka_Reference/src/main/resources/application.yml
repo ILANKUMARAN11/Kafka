@@ -3,14 +3,13 @@ server:
 
 
 kafka:
-    simple-Topic: JustSimple
-    avro-Topic: Employee
+    simple:
+      topic-name: JustSimple
+      group-id: JustSimple_group_id
+    employee:
+      topic-name: Employee
+      group-id: Employee_group_id
     consumer:
       bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
-      group-id: Employee_group_id
-
-
     producer:
       bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
-      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
