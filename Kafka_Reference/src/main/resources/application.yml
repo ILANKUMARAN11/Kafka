@@ -3,10 +3,11 @@ server:
 
 
 kafka:
-    topic-name: Invoice
+    simple-Topic: JustSimple
+    avro-Topic: Employee
     consumer:
       bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
-      group-id: group_id
+      group-id: Employee_group_id
 
 
     producer:

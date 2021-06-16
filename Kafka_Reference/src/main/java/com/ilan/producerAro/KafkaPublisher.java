@@ -1,6 +1,6 @@
 package com.ilan.producerAro;
 
-import avro.schema.Person;
+import avro.schema.Employee;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,21 +19,18 @@ public class KafkaPublisher {
 
     @Qualifier("AvroKafkaTemplate")
     @Autowired
-    KafkaTemplate<String, Person> kafkaTemplate;
-
-    @Value("${kafka.topic-name}")
-    String topicName;
+    KafkaTemplate<String, Employee> kafkaTemplate;
 
 
-    public void sendMessageWithCallback(String key, Person person) {
-        ListenableFuture<SendResult<String, Person>> future =
-                kafkaTemplate.send(topicName,key, person);
+    public void sendMessageWithCallback(String topicName, String key, Employee employee) {
+        ListenableFuture<SendResult<String, Employee>> future =
+                kafkaTemplate.send(topicName,key, employee);
 
-        future.addCallback(new ListenableFutureCallback<SendResult<String, Person>>() {
+        future.addCallback(new ListenableFutureCallback<SendResult<String, Employee>>() {
             @Override
-            public void onSuccess(SendResult<String, Person> result) {
+            public void onSuccess(SendResult<String, Employee> result) {
                 log.info("Message [{}] delivered to Topic [{}], Partition number [{}] sitting on offset [{}]",
-                        person.toString(),
+                        employee.toString(),
                         result.getRecordMetadata().topic(),
                         result.getRecordMetadata().partition(),
                         result.getRecordMetadata().offset());
@@ -42,7 +39,7 @@ public class KafkaPublisher {
             @Override
             public void onFailure(Throwable ex) {
                 log.warn("Unable to deliver message [{}]. {}",
-                        person.toString(),
+                        employee.toString(),
                         ex.getMessage());
             }
         });

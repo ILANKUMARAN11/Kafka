@@ -10,6 +10,7 @@
 
     <properties>
         <com.fasterxml.jackson>2.11.3</com.fasterxml.jackson>
+        <swagger>2.10.0</swagger>
     </properties>
 
     <dependencies>
@@ -58,6 +59,23 @@
             <version>1.10.0</version>
         </dependency>
 
+
+        <!-- io.springfox setup -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-data-rest</artifactId>
+            <version>${swagger}</version>
+        </dependency>
 
     </dependencies>
 

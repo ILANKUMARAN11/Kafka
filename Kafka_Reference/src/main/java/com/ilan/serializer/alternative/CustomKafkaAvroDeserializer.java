@@ -1,7 +1,7 @@
 package com.ilan.serializer.alternative;
 
 import avro.schema.Address;
-import avro.schema.Person;
+import avro.schema.Employee;
 import io.confluent.kafka.schemaregistry.client.MockSchemaRegistryClient;
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
@@ -12,7 +12,7 @@ public class CustomKafkaAvroDeserializer extends KafkaAvroDeserializer {
     @Override
     public Object deserialize(String topic, byte[] bytes) {
         if (topic.equals("<Your 1st topic name>")) {
-            this.schemaRegistry = getMockClient(Person.SCHEMA$);
+            this.schemaRegistry = getMockClient(Employee.SCHEMA$);
         }
         if (topic.equals("<Your 2nd topic name>")) {
             this.schemaRegistry = getMockClient(Address.SCHEMA$);

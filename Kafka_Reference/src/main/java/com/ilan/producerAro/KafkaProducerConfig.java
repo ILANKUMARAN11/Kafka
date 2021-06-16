@@ -1,6 +1,6 @@
 package com.ilan.producerAro;
 
-import avro.schema.Person;
+import avro.schema.Employee;
 import com.ilan.serializer.AvroSerializer;
 import io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -52,13 +52,13 @@ public class KafkaProducerConfig {
     }
 
     @Bean("AvroProducerFactory")
-    public ProducerFactory<String, Person> producerFactory() {
+    public ProducerFactory<String, Employee> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
 
     @Bean("AvroKafkaTemplate")
-    public KafkaTemplate<String, Person> kafkaTemplate(@Qualifier("AvroProducerFactory") ProducerFactory<String, Person> producerFactory) {
+    public KafkaTemplate<String, Employee> kafkaTemplate(@Qualifier("AvroProducerFactory") ProducerFactory<String, Employee> producerFactory) {
         return new KafkaTemplate<>(producerFactory);
     }
 }
