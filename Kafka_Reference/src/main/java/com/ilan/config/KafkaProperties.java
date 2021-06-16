@@ -32,16 +32,4 @@ public class KafkaProperties {
     @Value("${kafka.employee.group-id}")
     private String employeeGroupId;
 
-
-
-//    simple:
-//    topic-name: JustSimple
-//    group-id: JustSimple_group_id
-//    employee:
-//    topic-name: Employee
-//    group-id: Employee_group_id
-//    consumer:
-//    bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
-//    producer:
-//    bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
 }

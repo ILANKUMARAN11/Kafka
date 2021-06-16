@@ -1,1 +1,1 @@
-/Users/ilankumaran/Kafka/kafka_2.13-2.8.0/bin/zookeeper-shell.sh localhost:2101
+/Users/ilankumaran/Kafka/kafka_2.13-2.8.0/bin/zolsokeeper-shell.sh localhost:2101

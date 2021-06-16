@@ -20,8 +20,6 @@ public class KafkaPublisher {
     @Autowired
     KafkaTemplate<Integer, String> kafkaTemplate;
 
-
-
     public void sendMessageWithCallback(String topicName, Integer key,String message) {
         ListenableFuture<SendResult<Integer, String>> future =
                 kafkaTemplate.send(topicName,key,message);
