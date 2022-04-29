@@ -4,6 +4,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+!**/Script/Linux/temp
+!**/Script/Windows/temp
 
 ### STS ###
 .apt_generated
