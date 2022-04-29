@@ -1,1 +1,0 @@
-%KAFKA_HOME%\bin\windows/kafka-server-start.sh /Users/ilankumaran/Kafka/kafka_2.13-2.8.0/config/server-0.properties
