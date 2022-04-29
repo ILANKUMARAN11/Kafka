@@ -1,4 +1,4 @@
-%KAFKA_HOME%\bin\windows\zkCli.bat localhost:2181
+%KAFKA_HOME%\bin\windows\zookeeper-shell.bat localhost:2181
 
 help
 
