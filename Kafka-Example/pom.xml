@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.11.RELEASE</version>
+    </parent>
+
+
+    <groupId>com.ilan</groupId>
+    <artifactId>kafka-Eaxmples</artifactId>
+    <version>0.0.1</version>
+    <packaging>pom</packaging>
+
+    <name>Producer and Consumer examples</name>
+    <description>Demo project Kafka producer and consumer examples</description>
+
+
+    <properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>11</java.version>
+		<Spring-Boot-Version>2.3.11.RELEASE</Spring-Boot-Version>
+        <swagger>2.10.0</swagger>
+    </properties>
+
+    <modules>
+        <module>Kafka-Producer</module>
+        <module>Kafka-Consumer</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+
+
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${Spring-Boot-Version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
+</project>
