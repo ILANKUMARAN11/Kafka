@@ -65,7 +65,7 @@ call:concat %BASE_DIR%\share\java\kafka\*
 </p>
 </details>
 
-##Schema Evolution and Compatibility
+**Schema Evolution and Compatibility**,
 See the [COMPATIBILITY](https://docs.confluent.io/platform/current/schema-registry/avro.html) types and more.
 
 ######[@Github Ilankumaran11](https://github.com/ILANKUMARAN11/Kafka)
