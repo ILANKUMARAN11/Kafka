@@ -1,3 +1,8 @@
+###### Start Spring-boot with different Server.port and Consumer Group-ID
+```shell
+-Dserver.port=8183  -Dkafka.simple.group-id=JustSimple_group_id-1
+```
+
 ## Zookeeper Failed to start
 
 <details>
@@ -53,3 +58,6 @@ call:concat %BASE_DIR%\share\java\kafka\*
   
 </p>
 </details>
+
+##Schema Evolution and Compatibility
+See the [COMPATIBILITY](https://docs.confluent.io/platform/current/schema-registry/avro.html) types and more.
