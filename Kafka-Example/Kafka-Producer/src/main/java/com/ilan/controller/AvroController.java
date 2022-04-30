@@ -1,6 +1,7 @@
 package com.ilan.controller;
 
 import com.ilan.config.KafkaProperties;
+import com.ilan.producerAro.AvroPublisher;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -8,7 +9,6 @@ import io.swagger.annotations.ApiResponses;
 import my.pojo.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +20,8 @@ public class AvroController {
     @Autowired
     KafkaProperties kafkaProperties;
 
-    @Qualifier("AvroKafkaPublisher")
     @Autowired
-    com.ilan.producerAro.KafkaPublisher avroPublisher;
+    AvroPublisher avroPublisher;
 
     @ApiOperation(value = "API by RestTemplate", notes="fetch AccusedVo Info",nickname = "Avro Producer")
     @ApiResponses(value = {

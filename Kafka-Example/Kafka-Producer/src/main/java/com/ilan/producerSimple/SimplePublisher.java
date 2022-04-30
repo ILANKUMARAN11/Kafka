@@ -1,6 +1,5 @@
-package com.ilan.producerAro;
+package com.ilan.producerSimple;
 
-import avro.schema.Employee;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,25 +10,23 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
-@Order(2)
-@Component("AvroKafkaPublisher")
+@Component
 @Slf4j
-public class KafkaPublisher {
+public class SimplePublisher {
 
-    @Qualifier("AvroKafkaTemplate")
+    @Qualifier("SimpleKafkaTemplate")
     @Autowired
-    KafkaTemplate<String, Employee> kafkaTemplate;
+    KafkaTemplate<Integer, String> kafkaTemplate;
 
+    public void sendMessageWithCallback(String topicName, Integer key,String message) {
+        ListenableFuture<SendResult<Integer, String>> future =
+                kafkaTemplate.send(topicName,key,message);
 
-    public void sendMessageWithCallback(String topicName, String key, Employee employee) {
-        ListenableFuture<SendResult<String, Employee>> future =
-                kafkaTemplate.send(topicName,key, employee);
-
-        future.addCallback(new ListenableFutureCallback<SendResult<String, Employee>>() {
+        future.addCallback(new ListenableFutureCallback<SendResult<Integer, String>>() {
             @Override
-            public void onSuccess(SendResult<String, Employee> result) {
+            public void onSuccess(SendResult<Integer, String> result) {
                 log.info("Message [{}] delivered to Topic [{}], Partition number [{}] sitting on offset [{}]",
-                        employee.toString(),
+                        message,
                         result.getRecordMetadata().topic(),
                         result.getRecordMetadata().partition(),
                         result.getRecordMetadata().offset());
@@ -38,10 +35,11 @@ public class KafkaPublisher {
             @Override
             public void onFailure(Throwable ex) {
                 log.warn("Unable to deliver message [{}]. {}",
-                        employee.toString(),
+                        message,
                         ex.getMessage());
             }
         });
+
     }
 }
 

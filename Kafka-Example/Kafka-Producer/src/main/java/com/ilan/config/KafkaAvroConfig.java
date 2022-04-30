@@ -1,10 +1,13 @@
 package com.ilan.config;
 
+import avro.schema.Employee;
+import com.ilan.config.KafkaProperties;
+import com.ilan.serializer.AvroSerializer;
+import io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.IntegerSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
@@ -15,10 +18,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class KafkaTransactionProducerConfig {
+public class KafkaAvroConfig {
 
-    @Value("${kafka.producer.bootstrap-servers}")
-    private String bootstrapServers;
+    @Autowired
+    KafkaProperties kafkaProperties;
 
 
     public Map<String, Object> producerConfigs() {
@@ -26,8 +29,7 @@ public class KafkaTransactionProducerConfig {
 
         //Only one in-flight messages per Kafka broker connection
         // - max.in.flight.requests.per.connection (default 5)
-        props.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION,
-                1);
+        props.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 1);
         //Set the number of retries - retries
         props.put(ProducerConfig.RETRIES_CONFIG, 3);
 
@@ -37,23 +39,25 @@ public class KafkaTransactionProducerConfig {
         //Only retry after one second.
         props.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, 1_000);
 
-        //The acks setting is set to “all” (-1), “none” (0), or “leader” (1).
         props.put(ProducerConfig.ACKS_CONFIG,"-1");
 
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getProducerBootstrapServers());
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, AvroSerializer.class);
+        props.put(AbstractKafkaSchemaSerDeConfig.AUTO_REGISTER_SCHEMAS,Boolean.FALSE);
+        props.put(AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, "not-used");
 
         return props;
     }
 
-    @Bean("TransactionProducerFactory")
-    public ProducerFactory<Integer, String> producerFactory() {
+    @Bean("AvroProducerFactory")
+    public ProducerFactory<String, Employee> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
-    @Bean("TransactionKafkaTemplate")
-    public KafkaTemplate<Integer, String> kafkaTemplate(@Qualifier("TransactionProducerFactory") ProducerFactory<Integer, String> producerFactory) {
+
+    @Bean("AvroKafkaTemplate")
+    public KafkaTemplate<String, Employee> kafkaTemplate(@Qualifier("AvroProducerFactory") ProducerFactory<String, Employee> producerFactory) {
         return new KafkaTemplate<>(producerFactory);
     }
 }

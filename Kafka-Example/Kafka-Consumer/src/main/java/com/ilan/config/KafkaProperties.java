@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
 @Configuration
-@Order(-1)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,9 +15,6 @@ public class KafkaProperties {
 
     @Value("${kafka.consumer.bootstrap-servers}")
     private String consumerBootstrapServers;
-
-    @Value("${kafka.producer.bootstrap-servers}")
-    private String producerBootstrapServers;
 
     @Value("${kafka.simple.topic-name}")
     private String simpleTopicName;

@@ -1,13 +1,11 @@
-package com.ilan.consumerSimple;
+package com.ilan.config;
 
 import com.ilan.config.KafkaProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -16,15 +14,13 @@ import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
-import org.springframework.kafka.listener.adapter.RecordFilterStrategy;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Order(1)
 @Slf4j
 @Configuration
-public class KafkaConsumerConfig {
+public class KafkaSimpleConfig {
 
     @Autowired
     KafkaProperties kafkaProperties;

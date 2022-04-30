@@ -1,30 +1,22 @@
-package com.ilan.producerAro;
+package com.ilan.config;
 
-import avro.schema.Employee;
-import com.ilan.config.KafkaProperties;
-import com.ilan.serializer.AvroSerializer;
-import io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.IntegerSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.core.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Order(1)
-@Configuration("AvroKafkaProducerConfig")
-public class KafkaProducerConfig {
+@Configuration
+public class KafkaSimpleConfig {
 
     @Autowired
     KafkaProperties kafkaProperties;
-
 
     public Map<String, Object> producerConfigs() {
         Map<String, Object> props = new HashMap<>();
@@ -44,22 +36,19 @@ public class KafkaProducerConfig {
         props.put(ProducerConfig.ACKS_CONFIG,"-1");
 
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getProducerBootstrapServers());
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, AvroSerializer.class);
-        props.put(AbstractKafkaSchemaSerDeConfig.AUTO_REGISTER_SCHEMAS,Boolean.FALSE);
-        props.put(AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, "not-used");
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,IntegerSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 
         return props;
     }
 
-    @Bean("AvroProducerFactory")
-    public ProducerFactory<String, Employee> producerFactory() {
+    @Bean("SimpleProducerFactory")
+    public ProducerFactory<Integer, String> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
-
-    @Bean("AvroKafkaTemplate")
-    public KafkaTemplate<String, Employee> kafkaTemplate(@Qualifier("AvroProducerFactory") ProducerFactory<String, Employee> producerFactory) {
+    @Bean("SimpleKafkaTemplate")
+    public KafkaTemplate<Integer, String> kafkaTemplate(@Qualifier("SimpleProducerFactory") ProducerFactory<Integer, String> producerFactory) {
         return new KafkaTemplate<>(producerFactory);
     }
 }
