@@ -9,7 +9,5 @@ kafka:
         url: http://localhost:8081
     simple:
       topic-name: JustSimple
-      group-id: JustSimple_group_id
     employee:
       topic-name: Employee
-      group-id: Employee_group_id

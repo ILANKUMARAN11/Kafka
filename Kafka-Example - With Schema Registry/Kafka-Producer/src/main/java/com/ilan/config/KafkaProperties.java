@@ -22,13 +22,7 @@ public class KafkaProperties {
     @Value("${kafka.simple.topic-name}")
     private String simpleTopicName;
 
-    @Value("${kafka.simple.group-id}")
-    private String simpleGroupId;
-
     @Value("${kafka.employee.topic-name}")
     private String employeeTopicName;
-
-    @Value("${kafka.employee.group-id}")
-    private String employeeGroupId;
 
 }
