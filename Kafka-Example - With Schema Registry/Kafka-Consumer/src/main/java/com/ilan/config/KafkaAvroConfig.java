@@ -35,6 +35,8 @@ public class KafkaAvroConfig {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaProperties.getEmployeeGroupId());
         props.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, Boolean.TRUE);
         props.put(AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, kafkaProperties.getSchemaRegistryUrl());
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+
         return props;
     }
 
