@@ -1,6 +1,12 @@
-###### Start Spring-boot with different Server.port and Consumer Group-ID
+##### Start Spring-boot with different Server.port and Consumer Group-ID
+######As VM Args.
 ```shell
--Dserver.port=8183  -Dkafka.simple.group-id=JustSimple_group_id-1
+java -jar -Dserver.port=8183  -Dkafka.simple.group-id=JustSimple_group_id-1 Kafka-Producer-0.0.1-SNAPSHOT.jar
+```
+
+######As Program Args.
+```shell
+java -jar Kafka-Producer-0.0.1-SNAPSHOT.jar --server.port=8183  --kafka.simple.group-id=JustSimple_group_id-1
 ```
 
 ## Zookeeper Failed to start
