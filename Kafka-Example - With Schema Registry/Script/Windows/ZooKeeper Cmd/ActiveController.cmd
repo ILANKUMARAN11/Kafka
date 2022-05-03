@@ -7,5 +7,5 @@ ls /
 ::Active broker ID's
 ls /brokers/ids
 
-::Active broker ID's
-ls /controller
+::get controller broker ID
+get /controller
