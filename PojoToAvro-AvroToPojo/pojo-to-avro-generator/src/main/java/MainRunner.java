@@ -13,10 +13,12 @@ import pojo.Earth;
 import pojo.Mars;
 import pojo.Universe;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Properties;
 
 public class MainRunner {
 
@@ -34,16 +36,19 @@ public class MainRunner {
                 //.disable(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY)
                 .addModule(new AvroJavaTimeModule())
                 .build();
+
+
         createAvroSchemaFromClass(Employee.class, avroMapper, ".avro");
 
         createAvroSchemaFromClass(Universe.class, avroMapper, ".avsc");
         createAvroSchemaFromClass(Earth.class, avroMapper, ".avsc");
         createAvroSchemaFromClass(Mars.class, avroMapper, ".avsc");
 
+
     }
 
 
-    private static void createAvroSchemaFromClass(Class<?> clazz, AvroMapper avroMapper, String extention) throws IOException {
+    private static void createAvroSchemaFromClass(Class<?> clazz, AvroMapper avroMapper, String extension) throws IOException {
 
         AvroSchemaGenerator gen = new AvroSchemaGenerator();
         gen.enableLogicalTypes();
@@ -53,9 +58,9 @@ public class MainRunner {
         org.apache.avro.Schema avroSchema = schemaWrapper.getAvroSchema();
         String avroSchemaInJSON = avroSchema.toString(true);
 
+        String dir = System.getProperty("user.dir");
         //Write to File
-        Path fileName = Path.of("src/main/resources/"+clazz.getSimpleName() + extention);
+        Path fileName = Path.of(dir+"/"+"avro-to-projo-generator"+"/src/main/resources/"+clazz.getSimpleName() + extension);
         Files.writeString(fileName, avroSchemaInJSON);
-
     }
 }
