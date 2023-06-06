@@ -9,6 +9,7 @@ import com.fasterxml.jackson.dataformat.avro.AvroSchema;
 import com.fasterxml.jackson.dataformat.avro.jsr310.AvroJavaTimeModule;
 import com.fasterxml.jackson.dataformat.avro.schema.AvroSchemaGenerator;
 import my.pojo.Employee;
+import org.apache.avro.Schema;
 import pojo.Earth;
 import pojo.Mars;
 import pojo.Universe;
@@ -56,11 +57,16 @@ public class MainRunner {
         AvroSchema schemaWrapper = gen.getGeneratedSchema();
 
         org.apache.avro.Schema avroSchema = schemaWrapper.getAvroSchema();
-        String avroSchemaInJSON = avroSchema.toString(true);
+        String avroSchemaInJSON = avroSchema.toString(Boolean.TRUE);
+        String actualNameSpace = avroSchema.getNamespace();
+        String overrideNameSpace = "avro."+avroSchema.getNamespace();
+        org.apache.avro.Schema schemaInAvroNameSpace = new Schema.Parser().parse(avroSchemaInJSON.replace(actualNameSpace, overrideNameSpace));
+
+
 
         String dir = System.getProperty("user.dir");
         //Write to File
         Path fileName = Path.of(dir+"/"+"avro-to-pojo-generator"+"/src/main/resources/"+clazz.getSimpleName() + extension);
-        Files.writeString(fileName, avroSchemaInJSON);
+        Files.writeString(fileName, schemaInAvroNameSpace.toString(Boolean.TRUE));
     }
 }

@@ -12,6 +12,7 @@
     <modules>
         <module>avro-to-pojo-generator</module>
         <module>pojo-to-avro-generator</module>
+        <module>avro-plugin</module>
     </modules>
     <name>PojoToAvro-AvroToPojo</name>
     <description>Demo project Kafka Consumer</description>
