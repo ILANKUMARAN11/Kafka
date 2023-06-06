@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>avro-to-projo-generator</module>
+        <module>avro-to-pojo-generator</module>
         <module>pojo-to-avro-generator</module>
     </modules>
     <name>PojoToAvro-AvroToPojo</name>
