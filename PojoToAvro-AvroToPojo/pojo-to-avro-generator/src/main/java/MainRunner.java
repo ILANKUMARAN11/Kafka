@@ -60,7 +60,7 @@ public class MainRunner {
 
         String dir = System.getProperty("user.dir");
         //Write to File
-        Path fileName = Path.of(dir+"/"+"avro-to-projo-generator"+"/src/main/resources/"+clazz.getSimpleName() + extension);
+        Path fileName = Path.of(dir+"/"+"avro-to-pojo-generator"+"/src/main/resources/"+clazz.getSimpleName() + extension);
         Files.writeString(fileName, avroSchemaInJSON);
     }
 }
