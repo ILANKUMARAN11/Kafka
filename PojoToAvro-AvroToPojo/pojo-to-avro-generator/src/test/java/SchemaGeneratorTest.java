@@ -23,7 +23,7 @@ public class SchemaGeneratorTest {
     static String testResource = null;
 
     @BeforeAll
-    static void initAll() {
+    static void setup() {
 
         Path resourceDirectory = Paths.get("src", "test", "resources");
         String absolutePath = resourceDirectory.toFile().getAbsolutePath();
