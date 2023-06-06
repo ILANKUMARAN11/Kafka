@@ -1,4 +1,4 @@
-package my.pojo;
+package pojo;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import io.swagger.annotations.ApiModelProperty;

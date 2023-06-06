@@ -10,9 +10,10 @@
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>avro-to-pojo-generator</module>
         <module>pojo-to-avro-generator</module>
         <module>avro-plugin</module>
+
+        <module>avro-to-pojo-generator</module>
     </modules>
     <name>PojoToAvro-AvroToPojo</name>
     <description>Demo project Kafka Consumer</description>
