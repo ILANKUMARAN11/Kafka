@@ -1,5 +1,4 @@
-/avro-to-pojo-generator/src/main/java/**
-/avro-to-pojo-generator/src/main/resource/**
+/avro-to-pojo-generator/**
 *.avro
 *.avsc
 # Created by https://www.gitignore.io/api/eclipse,intellij
