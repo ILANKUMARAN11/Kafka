@@ -5,6 +5,7 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
+import service.SchemaGenerator;
 
 /**
 
@@ -22,8 +23,10 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  */
 
 @Mojo(name = "pojo-to-schema", requiresDependencyResolution = ResolutionScope.TEST, defaultPhase = LifecyclePhase.GENERATE_SOURCES)
-public class GenerateAvro extends AbstractMojo {
+public class GenerateSchemaMojo extends AbstractMojo {
 
+    @Parameter( property = "extension", defaultValue = "avsc" )
+    private String extension;
 
     @Parameter( property = "nameSpacePrefix", defaultValue = "avro" )
     private String nameSpacePrefix;
@@ -32,9 +35,17 @@ public class GenerateAvro extends AbstractMojo {
     private String nameSpaceSuffix;
 
 
+    @Parameter( property = "outputDirectory", defaultValue = "${project.basedir}/src/main/resources/" )
+    private String outputDirectory;
+
+
+
+    @Parameter( property = "sourceDirectory", defaultValue = "${project.basedir}/src/main/java/" )
+    private String sourceDirectory;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-
+        SchemaGenerator schemaGenerator = new SchemaGenerator();
+        //schemaGenerator.createAvroSchemaFromClass(sourceDirectory, null, extension, nameSpacePrefix, nameSpaceSuffix, outputDirectory );
     }
 }

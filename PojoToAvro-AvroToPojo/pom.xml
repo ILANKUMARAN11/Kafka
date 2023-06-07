@@ -5,15 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     
-    <groupId>org.example</groupId>
+    <groupId>org.avro.schema</groupId>
     <artifactId>PojoToAvro-AvroToPojo</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>pojo-to-avro-generator</module>
+        <module>pojo-to-schema-generator</module>
         <module>avro-plugin</module>
 
-        <module>avro-to-pojo-generator</module>
+        <module>avro-class-generator</module>
     </modules>
     <name>PojoToAvro-AvroToPojo</name>
     <description>Demo project Kafka Consumer</description>

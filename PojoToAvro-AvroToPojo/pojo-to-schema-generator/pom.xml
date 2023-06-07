@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>PojoToAvro-AvroToPojo</artifactId>
-        <groupId>org.example</groupId>
+        <groupId>org.avro.schema</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>pojo-to-avro-generator</artifactId>
+    <artifactId>pojo-to-schema-generator</artifactId>
 
     <properties>
         <maven.compiler.source>18</maven.compiler.source>

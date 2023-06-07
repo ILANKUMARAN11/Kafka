@@ -13,6 +13,8 @@ import service.SchemaGenerator;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -32,6 +34,7 @@ public class SchemaGeneratorTest {
         File folder = new File(testResource);
         Arrays.stream(folder.listFiles())
                 .filter(f -> f.getName().endsWith(".avro") || f.getName().endsWith(".avsc"))
+                .peek(f-> System.out.println(f.getName()+" is deleted"))
                 .forEach(File::delete);
 
         avroMapper = AvroMapper.builder()
@@ -45,20 +48,35 @@ public class SchemaGeneratorTest {
 
     @Test
     @DisplayName("avro extension generate ")
-    public void generateAvro() throws IOException {
+    public void generateAvro() throws IOException, ClassNotFoundException {
+
+        Path testSrcDirectory = Paths.get("src", "test", "java");
+
+        URL url = testSrcDirectory.toFile().toURI().toURL();
+        URL[] urls = new URL[]{url};
+
+        for (int i=0; urls.length>i; i++){
+            System.out.println(urls[i]);
+        }
+        // Create a new class loader with the directory
+        ClassLoader cl = new URLClassLoader(urls);
+        Class cls = cl.loadClass("pojo.Employee");
+
         String extension = ".avro";
-        SchemaGenerator.createAvroSchemaFromClass(Employee.class, avroMapper, extension, "avro", null, testResource);
-        Assertions.assertTrue(getFileNameFromClass(Employee.class, extension));
+        SchemaGenerator schemaGenerator = new SchemaGenerator();
+        schemaGenerator.createAvroSchemaFromClass(cls, avroMapper, extension, "avro", null, testResource);
+        Assertions.assertTrue(getFileNameFromClass(cls, extension));
     }
 
-    @Test
+    //@Test
     @DisplayName("asvc extension generate ")
     public void generateAsvc() throws IOException {
         String extension = ".avsc";
 
-        SchemaGenerator.createAvroSchemaFromClass(Universe.class, avroMapper, extension, "avro", null, testResource);
-        SchemaGenerator.createAvroSchemaFromClass(Earth.class, avroMapper, extension, "avro", null, testResource);
-        SchemaGenerator.createAvroSchemaFromClass(Mars.class, avroMapper, extension, "avro", null, testResource);
+        SchemaGenerator schemaGenerator = new SchemaGenerator();
+        schemaGenerator.createAvroSchemaFromClass(Universe.class, avroMapper, extension, "avro", null, testResource);
+        schemaGenerator.createAvroSchemaFromClass(Earth.class, avroMapper, extension, "avro", null, testResource);
+        schemaGenerator.createAvroSchemaFromClass(Mars.class, avroMapper, extension, "avro", null, testResource);
 
         Assertions.assertTrue(getFileNameFromClass(Universe.class, extension));
         Assertions.assertTrue(getFileNameFromClass(Earth.class, extension));

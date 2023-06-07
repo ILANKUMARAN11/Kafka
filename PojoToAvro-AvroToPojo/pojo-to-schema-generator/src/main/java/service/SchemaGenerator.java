@@ -21,17 +21,17 @@ public class SchemaGenerator {
 //        AvroSchemaGenerator gen = new AvroSchemaGenerator();
 //        mapper.acceptJsonFormatVisitor(Employee.class, gen);
 
-    static String packageSplitter = ".";
-    static String defaultPackage = "avro";
+    String packageSplitter = ".";
+    String defaultPackage = "avro";
 
-    static AvroMapper defaultAvroMapper = AvroMapper.builder()
+    AvroMapper defaultAvroMapper = AvroMapper.builder()
             .enable(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY)
             .enable(MapperFeature.APPLY_DEFAULT_VALUES)
             //.disable(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY)
             .addModule(new AvroJavaTimeModule())
             .build();
 
-    public static void createAvroSchemaFromClass(Class<?> clazz, AvroMapper avroMapper, String extension, String nameSpacePrefix, String nameSpaceSuffix, String outputDirectory) throws IOException {
+    public void createAvroSchemaFromClass(Class<?> clazz, AvroMapper avroMapper, String extension, String nameSpacePrefix, String nameSpaceSuffix, String outputDirectory) throws IOException {
 
 
         AvroSchemaGenerator gen = new AvroSchemaGenerator();
@@ -39,7 +39,7 @@ public class SchemaGenerator {
         if (Objects.nonNull(avroMapper)) {
             avroMapper.acceptJsonFormatVisitor(clazz, gen);
         } else {
-            defaultAvroMapper.acceptJsonFormatVisitor(clazz, gen);
+            this.defaultAvroMapper.acceptJsonFormatVisitor(clazz, gen);
         }
         AvroSchema schemaWrapper = gen.getGeneratedSchema();
 
