@@ -6,6 +6,8 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import com.ilan.service.SchemaGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +23,7 @@ import java.util.List;
 @Mojo(name = "avro-schema", defaultPhase = LifecyclePhase.COMPILE)
 public class GenerateSchemaMojo extends AbstractMojo {
 
+    //private static Logger log = LoggerFactory.getLogger(GenerateSchemaMojo.class);
     @Parameter( property = "extension", defaultValue = "avsc" )
     private String extension;
 
@@ -67,7 +70,9 @@ public class GenerateSchemaMojo extends AbstractMojo {
             System.out.println(urlfrom.getFile());
 
         } catch (MalformedURLException e) {
-        } catch (ClassNotFoundException | IOException e) {
+            log.error("MalformedURLException :: {}",e.getMessage());
+        } catch (ClassNotFoundException e) {
+            log.error("ClassNotFoundException :: {}",e.getMessage());
         }
 
         SchemaGenerator schemaGenerator = new SchemaGenerator();
