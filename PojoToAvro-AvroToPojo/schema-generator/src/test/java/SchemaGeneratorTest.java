@@ -68,9 +68,9 @@ public class SchemaGeneratorTest {
         Assertions.assertTrue(getFileNameFromClass(cls, extension));
     }
 
-    //@Test
-    @DisplayName("asvc extension generate ")
-    public void generateAsvc() throws IOException {
+    @Test
+    @DisplayName("avsc extension generate ")
+    public void generateAvsc() throws IOException {
         String extension = ".avsc";
 
         SchemaGenerator schemaGenerator = new SchemaGenerator();
