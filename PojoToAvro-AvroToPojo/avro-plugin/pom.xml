@@ -19,7 +19,7 @@
 
         <dependency>
             <groupId>org.avro.schema</groupId>
-            <artifactId>pojo-to-schema-generator</artifactId>
+            <artifactId>schema-generator</artifactId>
             <version>${project.version}</version>
         </dependency>
 

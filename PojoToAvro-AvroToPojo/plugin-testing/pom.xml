@@ -47,7 +47,35 @@
                     </execution>
                 </executions>
             </plugin>
+
+
+            <plugin>
+                <groupId>org.avro.schema</groupId>
+                <artifactId>avro-plugin</artifactId>
+                <version>${project.version}</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>schema</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/target/classes/</sourceDirectory>
+                            <outputDirectory>${project.basedir}/src/main/resources</outputDirectory>
+                            <extension>avsc</extension>
+                            <nameSpacePrefix>com</nameSpacePrefix>
+                            <nameSpaceSuffix>delta</nameSpaceSuffix>
+                            <!--<includes>
+                                <include>**/*.avro</include>
+                                <include>**/*.avsc</include>
+                            </includes>-->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+
+
 
     </build>
 
