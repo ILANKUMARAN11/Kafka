@@ -14,6 +14,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
 
@@ -51,6 +52,9 @@ public class GenerateSchemaMojo extends AbstractMojo {
 
     @Parameter( property = "sourceDirectory", defaultValue = "${project.basedir}/target/classes/" )
     private String sourceDirectory;
+
+    @Parameter
+    private List<String> excludes;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {

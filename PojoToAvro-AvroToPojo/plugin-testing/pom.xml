@@ -68,6 +68,31 @@
         <plugins>
 
             <plugin>
+                <groupId>org.avro.schema</groupId>
+                <artifactId>avro-schema-plugin</artifactId>
+                <version>${project.version}</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>avro-schema</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/target/classes/</sourceDirectory>
+                            <outputDirectory>${project.basedir}/src/main/resources/</outputDirectory>
+                            <extension>avsc</extension>
+                            <nameSpacePrefix>com</nameSpacePrefix>
+                            <nameSpaceSuffix>delta</nameSpaceSuffix>
+                            <excludes>
+                                <exclude>**/*.avro</exclude>
+                                <exclude>**/*.avsc</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.avro</groupId>
                 <artifactId>avro-maven-plugin</artifactId>
                 <version>1.10.0</version>
@@ -89,31 +114,6 @@
                 </executions>
             </plugin>
 
-
-            <plugin>
-                <groupId>org.avro.schema</groupId>
-                <artifactId>avro-schema-plugin</artifactId>
-                <version>${project.version}</version>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>avro-schema</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirectory>${project.basedir}/target/classes/</sourceDirectory>
-                            <outputDirectory>${project.basedir}/src/main/resources/</outputDirectory>
-                            <extension>avsc</extension>
-                            <nameSpacePrefix>com</nameSpacePrefix>
-                            <nameSpaceSuffix>delta</nameSpaceSuffix>
-                            <!--<includes>
-                                <include>**/*.avro</include>
-                                <include>**/*.avsc</include>
-                            </includes>-->
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
 
 
