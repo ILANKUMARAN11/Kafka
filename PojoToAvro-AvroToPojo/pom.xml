@@ -10,22 +10,22 @@
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>pojo-to-schema-generator</module>
+        <module>schema-generator</module>
         <module>avro-plugin</module>
-
-        <module>avro-class-generator</module>
+        <module>plugin-testing</module>
     </modules>
     <name>PojoToAvro-AvroToPojo</name>
     <description>Demo project Kafka Consumer</description>
 
     <properties>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
         <com.fasterxml.jackson>2.15.2</com.fasterxml.jackson>
         <swagger>2.10.0</swagger>
     </properties>
 
 
     <build>
-        <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -35,9 +35,7 @@
                     <target>18</target>
                 </configuration>
             </plugin>
-
         </plugins>
-
     </build>
 
 

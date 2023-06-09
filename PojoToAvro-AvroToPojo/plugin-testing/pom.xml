@@ -12,8 +12,6 @@
     <artifactId>avro-class-generator</artifactId>
 
     <properties>
-        <maven.compiler.source>18</maven.compiler.source>
-        <maven.compiler.target>18</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -26,7 +24,6 @@
 
 
     <build>
-        <defaultGoal>install</defaultGoal>
         <plugins>
 
             <plugin>

@@ -12,8 +12,6 @@
     <artifactId>pojo-to-schema-generator</artifactId>
 
     <properties>
-        <maven.compiler.source>18</maven.compiler.source>
-        <maven.compiler.target>18</maven.compiler.target>
         <com.fasterxml.jackson>2.15.2</com.fasterxml.jackson>
         <swagger>2.10.0</swagger>
     </properties>
@@ -50,12 +48,6 @@
             <version>${com.fasterxml.jackson}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.confluent/kafka-avro-serializer -->
-        <!--        <dependency>-->
-        <!--            <groupId>io.confluent</groupId>-->
-        <!--            <artifactId>kafka-avro-serializer</artifactId>-->
-        <!--            <version>5.3.0</version>-->
-        <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.apache.avro/avro -->
         <dependency>
