@@ -22,6 +22,45 @@
             <artifactId>avro</artifactId>
             <version>1.11.1</version>
         </dependency>
+
+        <!-- io.springfox setup -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-data-rest</artifactId>
+            <version>${swagger}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-avro -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-avro</artifactId>
+            <version>${com.fasterxml.jackson}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${com.fasterxml.jackson}</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${com.fasterxml.jackson}</version>
+        </dependency>
     </dependencies>
 
 
@@ -53,17 +92,17 @@
 
             <plugin>
                 <groupId>org.avro.schema</groupId>
-                <artifactId>avro-plugin</artifactId>
+                <artifactId>avro-schema-plugin</artifactId>
                 <version>${project.version}</version>
                 <executions>
                     <execution>
                         <phase>compile</phase>
                         <goals>
-                            <goal>schema</goal>
+                            <goal>avro-schema</goal>
                         </goals>
                         <configuration>
                             <sourceDirectory>${project.basedir}/target/classes/</sourceDirectory>
-                            <outputDirectory>${project.basedir}/src/main/resources</outputDirectory>
+                            <outputDirectory>${project.basedir}/src/main/resources/</outputDirectory>
                             <extension>avsc</extension>
                             <nameSpacePrefix>com</nameSpacePrefix>
                             <nameSpaceSuffix>delta</nameSpaceSuffix>

@@ -21,7 +21,7 @@
 
         <dependency>
             <groupId>org.avro.schema</groupId>
-            <artifactId>schema-generator</artifactId>
+            <artifactId>avro-schema-generator</artifactId>
             <version>${project.version}</version>
         </dependency>
 

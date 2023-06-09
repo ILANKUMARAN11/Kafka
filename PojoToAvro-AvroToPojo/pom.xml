@@ -20,7 +20,7 @@
     </properties>
 
     <modules>
-        <module>schema-generator</module>
+        <module>avro-schema-generator</module>
         <module>avro-schema-plugin</module>
         <module>plugin-testing</module>
     </modules>

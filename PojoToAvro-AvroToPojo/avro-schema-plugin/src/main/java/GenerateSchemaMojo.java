@@ -31,7 +31,7 @@ import java.util.Collection;
  */
 
 //@Slf4j
-@Mojo(name = "pojo-to-schema", defaultPhase = LifecyclePhase.COMPILE)
+@Mojo(name = "avro-schema", defaultPhase = LifecyclePhase.COMPILE)
 public class GenerateSchemaMojo extends AbstractMojo {
 
     @Parameter( property = "extension", defaultValue = "avsc" )
