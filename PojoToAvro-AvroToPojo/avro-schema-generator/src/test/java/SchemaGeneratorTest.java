@@ -9,12 +9,10 @@ import pojo.Earth;
 import pojo.Employee;
 import pojo.Mars;
 import pojo.Universe;
-import service.SchemaGenerator;
+import com.ilan.service.SchemaGenerator;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;

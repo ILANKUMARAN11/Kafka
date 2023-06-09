@@ -1,10 +1,11 @@
-package service;
+package com.ilan.service;
 
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.dataformat.avro.AvroMapper;
 import com.fasterxml.jackson.dataformat.avro.AvroSchema;
 import com.fasterxml.jackson.dataformat.avro.jsr310.AvroJavaTimeModule;
 import com.fasterxml.jackson.dataformat.avro.schema.AvroSchemaGenerator;
+import com.ilan.constant.SchemaConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.Schema;
 import org.springframework.util.StringUtils;
@@ -21,11 +22,6 @@ public class SchemaGenerator {
 //        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
 //        AvroSchemaGenerator gen = new AvroSchemaGenerator();
 //        mapper.acceptJsonFormatVisitor(Employee.class, gen);
-
-    String packageSplitter = ".";
-    String extensionSplitter = ".";
-
-    String defaultPackage = "avro";
 
     AvroMapper defaultAvroMapper = AvroMapper.builder()
             .enable(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY)
@@ -50,8 +46,8 @@ public class SchemaGenerator {
         String avroSchemaInJSON = avroSchema.toString(Boolean.TRUE);
         String actualNameSpace = avroSchema.getNamespace();
 
-        String prefixNameSpace = nameSpacePrefix + packageSplitter;
-        String suffixNameSpace = packageSplitter + nameSpaceSuffix;
+        String prefixNameSpace = nameSpacePrefix + SchemaConstant.packageSplitter;
+        String suffixNameSpace = SchemaConstant.packageSplitter + nameSpaceSuffix;
 
 
         log.info("user has the config package prefix as :: {}" + nameSpacePrefix);
@@ -68,7 +64,7 @@ public class SchemaGenerator {
 
         log.info("outputDirectory {}", outputDirectory);
         //Write to File
-        Path fileName = Path.of(outputDirectory + clazz.getSimpleName() + extensionSplitter + extension);
+        Path fileName = Path.of(outputDirectory + clazz.getSimpleName() + SchemaConstant.extensionSplitter + extension);
         Files.writeString(fileName, schemaInAvroNameSpace.toString(Boolean.TRUE));
     }
 }
