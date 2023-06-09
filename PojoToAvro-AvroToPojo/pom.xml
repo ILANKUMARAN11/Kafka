@@ -4,16 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    
     <groupId>org.avro.schema</groupId>
     <artifactId>PojoToAvro-AvroToPojo</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <modules>
-        <module>schema-generator</module>
-        <module>avro-plugin</module>
-        <module>plugin-testing</module>
-    </modules>
     <name>PojoToAvro-AvroToPojo</name>
     <description>Demo project Kafka Consumer</description>
 
@@ -24,6 +18,12 @@
         <swagger>2.10.0</swagger>
         <lombok.version>1.18.28</lombok.version>
     </properties>
+
+    <modules>
+        <module>schema-generator</module>
+        <module>avro-schema-plugin</module>
+        <module>plugin-testing</module>
+    </modules>
 
     <dependencies>
         <dependency>
@@ -36,6 +36,7 @@
 
 
     <build>
+        <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

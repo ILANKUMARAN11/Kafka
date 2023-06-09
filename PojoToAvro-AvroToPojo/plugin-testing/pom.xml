@@ -51,7 +51,7 @@
             </plugin>
 
 
-            <!--<plugin>
+            <plugin>
                 <groupId>org.avro.schema</groupId>
                 <artifactId>avro-plugin</artifactId>
                 <version>${project.version}</version>
@@ -67,14 +67,14 @@
                             <extension>avsc</extension>
                             <nameSpacePrefix>com</nameSpacePrefix>
                             <nameSpaceSuffix>delta</nameSpaceSuffix>
-                            &lt;!&ndash;<includes>
+                            <!--<includes>
                                 <include>**/*.avro</include>
                                 <include>**/*.avsc</include>
-                            </includes>&ndash;&gt;
+                            </includes>-->
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
         </plugins>
 
 
