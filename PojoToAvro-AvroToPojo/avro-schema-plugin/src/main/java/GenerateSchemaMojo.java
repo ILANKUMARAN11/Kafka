@@ -12,6 +12,8 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -68,12 +70,19 @@ public class GenerateSchemaMojo extends AbstractMojo {
 
             // Create a new class loader with the directory
             ClassLoader cl = new URLClassLoader(urls);
+            //ClassLoader cl = createDirectoryLoader(sourceDirectory);
 
             // Load in the class; MyClass.class should be located in
             // the directory file:/c:/myclasses/com/mycompany
             cls = cl.loadClass("pojo.common.Details");
+
+            ProtectionDomain pDomain = cls.getProtectionDomain();
+            CodeSource cSource = pDomain.getCodeSource();
+            URL urlfrom = cSource.getLocation();
+            System.out.println(urlfrom.getFile());
+
         } catch (MalformedURLException e) {
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | IOException e) {
         }
 
         SchemaGenerator schemaGenerator = new SchemaGenerator();
@@ -84,7 +93,7 @@ public class GenerateSchemaMojo extends AbstractMojo {
         }
     }
 
-    public static ClassLoader createDirectoryLoader(String directory) throws URISyntaxException, IOException {
+    /*public static ClassLoader createDirectoryLoader(String directory) throws URISyntaxException, IOException {
         Collection<URL> urls = new ArrayList<URL>();
         File dir = new File(directory);
         File[] files = dir.listFiles();
@@ -94,5 +103,5 @@ public class GenerateSchemaMojo extends AbstractMojo {
         }
 
         return URLClassLoader.newInstance(urls.toArray(new URL[urls.size()]));
-    }
+    }*/
 }
