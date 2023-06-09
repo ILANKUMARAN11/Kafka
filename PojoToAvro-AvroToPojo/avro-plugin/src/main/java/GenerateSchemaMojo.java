@@ -46,7 +46,7 @@ public class GenerateSchemaMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        SchemaGenerator schemaGenerator = new SchemaGenerator();
-        schemaGenerator.createAvroSchemaFromClass(sourceDirectory, null, extension, nameSpacePrefix, nameSpaceSuffix, outputDirectory );
+        /*SchemaGenerator schemaGenerator = new SchemaGenerator();
+        schemaGenerator.createAvroSchemaFromClass(sourceDirectory, null, extension, nameSpacePrefix, nameSpaceSuffix, outputDirectory );*/
     }
 }

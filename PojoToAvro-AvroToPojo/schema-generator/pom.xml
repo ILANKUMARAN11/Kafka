@@ -12,6 +12,8 @@
     <artifactId>schema-generator</artifactId>
 
     <properties>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
         <com.fasterxml.jackson>2.15.2</com.fasterxml.jackson>
         <swagger>2.10.0</swagger>
     </properties>

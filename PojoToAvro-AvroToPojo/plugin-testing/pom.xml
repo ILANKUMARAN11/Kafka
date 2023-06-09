@@ -12,6 +12,8 @@
     <artifactId>plugin-testing</artifactId>
 
     <properties>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -49,7 +51,7 @@
             </plugin>
 
 
-            <plugin>
+            <!--<plugin>
                 <groupId>org.avro.schema</groupId>
                 <artifactId>avro-plugin</artifactId>
                 <version>${project.version}</version>
@@ -65,14 +67,14 @@
                             <extension>avsc</extension>
                             <nameSpacePrefix>com</nameSpacePrefix>
                             <nameSpaceSuffix>delta</nameSpaceSuffix>
-                            <!--<includes>
+                            &lt;!&ndash;<includes>
                                 <include>**/*.avro</include>
                                 <include>**/*.avsc</include>
-                            </includes>-->
+                            </includes>&ndash;&gt;
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
 
 
