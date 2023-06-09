@@ -31,7 +31,7 @@ public class GenerateSchemaMojo extends AbstractMojo {
     @Parameter( property = "nameSpacePrefix", defaultValue = "avro" )
     private String nameSpacePrefix;
 
-    @Parameter( property = "nameSpaceSuffix", defaultValue = "avro" )
+    @Parameter( property = "nameSpaceSuffix")
     private String nameSpaceSuffix;
 
 

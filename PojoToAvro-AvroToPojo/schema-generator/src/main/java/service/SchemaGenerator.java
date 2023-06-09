@@ -23,6 +23,7 @@ public class SchemaGenerator {
 
     String packageSplitter = ".";
     String extensionSplitter = ".";
+
     String defaultPackage = "avro";
 
     AvroMapper defaultAvroMapper = AvroMapper.builder()
@@ -49,24 +50,24 @@ public class SchemaGenerator {
         String actualNameSpace = avroSchema.getNamespace();
 
         String prefixNameSpace = nameSpacePrefix + packageSplitter;
-//        String suffixNameSpace = packageSplitter + nameSpaceSuffix;
-//
-//        if (nameSpacePrefix.equalsIgnoreCase(defaultPackage)) {
-//
-//        }
-//
-//        if (nameSpaceSuffix.equalsIgnoreCase(defaultPackage)) {
-//
-//        }
+        String suffixNameSpace = packageSplitter + nameSpaceSuffix;
 
+
+        log.info("user has the config package prefix as :: {}"+nameSpacePrefix);
         String overrideNameSpace = prefixNameSpace + avroSchema.getNamespace();
+
+//        if (Objects.nonNull(nameSpaceSuffix) && ) {
+//
+//        }
+//
+//
         org.apache.avro.Schema schemaInAvroNameSpace = new Schema
                 .Parser()
                 .parse(avroSchemaInJSON.replace(actualNameSpace, overrideNameSpace));
 
         log.info("outputDirectory {}", outputDirectory);
         //Write to File
-        Path fileName = Path.of(outputDirectory + clazz.getSimpleName() +extensionSplitter+ extension);
+        Path fileName = Path.of(outputDirectory + clazz.getSimpleName() + extensionSplitter + extension);
         Files.writeString(fileName, schemaInAvroNameSpace.toString(Boolean.TRUE));
     }
 }

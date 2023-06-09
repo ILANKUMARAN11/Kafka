@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>pojo-to-schema-generator</artifactId>
+    <artifactId>schema-generator</artifactId>
 
     <properties>
         <com.fasterxml.jackson>2.15.2</com.fasterxml.jackson>
