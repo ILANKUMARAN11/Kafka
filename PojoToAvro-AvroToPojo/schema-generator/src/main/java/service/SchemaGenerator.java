@@ -22,6 +22,7 @@ public class SchemaGenerator {
 //        mapper.acceptJsonFormatVisitor(Employee.class, gen);
 
     String packageSplitter = ".";
+    String extensionSplitter = ".";
     String defaultPackage = "avro";
 
     AvroMapper defaultAvroMapper = AvroMapper.builder()
@@ -65,7 +66,7 @@ public class SchemaGenerator {
 
         log.info("outputDirectory {}", outputDirectory);
         //Write to File
-        Path fileName = Path.of(outputDirectory + clazz.getSimpleName() + extension);
+        Path fileName = Path.of(outputDirectory + clazz.getSimpleName() +extensionSplitter+ extension);
         Files.writeString(fileName, schemaInAvroNameSpace.toString(Boolean.TRUE));
     }
 }

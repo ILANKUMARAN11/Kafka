@@ -49,29 +49,16 @@ public class SchemaGeneratorTest {
     @Test
     @DisplayName("avro extension generate ")
     public void generateAvro() throws IOException, ClassNotFoundException {
-
-        Path testSrcDirectory = Paths.get("src", "test", "java");
-
-        URL url = testSrcDirectory.toFile().toURI().toURL();
-        URL[] urls = new URL[]{url};
-
-        for (int i=0; urls.length>i; i++){
-            System.out.println(urls[i]);
-        }
-        // Create a new class loader with the directory
-        ClassLoader cl = new URLClassLoader(urls);
-        Class cls = cl.loadClass("pojo.Employee");
-
-        String extension = ".avro";
+        String extension = "avro";
         SchemaGenerator schemaGenerator = new SchemaGenerator();
-        schemaGenerator.createAvroSchemaFromClass(cls, avroMapper, extension, "avro", null, testResource);
-        Assertions.assertTrue(getFileNameFromClass(cls, extension));
+        schemaGenerator.createAvroSchemaFromClass(Employee.class, avroMapper, extension, "avro", null, testResource);
+        Assertions.assertTrue(getFileNameFromClass(Employee.class, extension));
     }
 
     @Test
     @DisplayName("avsc extension generate ")
     public void generateAvsc() throws IOException {
-        String extension = ".avsc";
+        String extension = "avsc";
 
         SchemaGenerator schemaGenerator = new SchemaGenerator();
         schemaGenerator.createAvroSchemaFromClass(Universe.class, avroMapper, extension, "avro", null, testResource);
