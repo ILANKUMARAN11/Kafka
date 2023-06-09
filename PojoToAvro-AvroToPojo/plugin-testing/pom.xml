@@ -73,7 +73,7 @@
                 <version>1.10.0</version>
                 <executions>
                     <execution>
-                        <phase>generate-sources</phase>
+                        <phase>compile</phase>
                         <goals>
                             <goal>schema</goal>
                         </goals>

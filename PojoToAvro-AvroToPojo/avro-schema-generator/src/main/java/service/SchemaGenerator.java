@@ -7,6 +7,7 @@ import com.fasterxml.jackson.dataformat.avro.jsr310.AvroJavaTimeModule;
 import com.fasterxml.jackson.dataformat.avro.schema.AvroSchemaGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.Schema;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -53,14 +54,14 @@ public class SchemaGenerator {
         String suffixNameSpace = packageSplitter + nameSpaceSuffix;
 
 
-        log.info("user has the config package prefix as :: {}"+nameSpacePrefix);
+        log.info("user has the config package prefix as :: {}" + nameSpacePrefix);
         String overrideNameSpace = prefixNameSpace + avroSchema.getNamespace();
 
-//        if (Objects.nonNull(nameSpaceSuffix) && ) {
-//
-//        }
-//
-//
+        if (Objects.nonNull(nameSpaceSuffix) && !StringUtils.isEmpty(nameSpaceSuffix)) {
+            overrideNameSpace = overrideNameSpace + suffixNameSpace;
+        }
+
+
         org.apache.avro.Schema schemaInAvroNameSpace = new Schema
                 .Parser()
                 .parse(avroSchemaInJSON.replace(actualNameSpace, overrideNameSpace));
