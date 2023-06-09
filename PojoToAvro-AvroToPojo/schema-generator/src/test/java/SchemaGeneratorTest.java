@@ -50,6 +50,7 @@ public class SchemaGeneratorTest {
     @DisplayName("avro extension generate ")
     public void generateAvro() throws IOException, ClassNotFoundException {
         String extension = "avro";
+
         SchemaGenerator schemaGenerator = new SchemaGenerator();
         schemaGenerator.createAvroSchemaFromClass(Employee.class, avroMapper, extension, "avro", null, testResource);
         Assertions.assertTrue(getFileNameFromClass(Employee.class, extension));
