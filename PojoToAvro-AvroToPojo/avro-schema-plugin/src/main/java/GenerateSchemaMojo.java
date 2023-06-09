@@ -1,3 +1,4 @@
+import lombok.extern.slf4j.Slf4j;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -15,22 +16,8 @@ import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.List;
 
-/**
 
- <plugin>
- <groupId>sample.plugin</groupId>
- <artifactId>hello-maven-plugin</artifactId>
- <version>1.0-SNAPSHOT</version>
- <configuration>
- <nameSpacePrefix>avro</nameSpacePrefix>
- <nameSpacePrefix>Welcome</nameSpacePrefix>
- </configuration>
- </plugin>
-
-
- */
-
-//@Slf4j
+@Slf4j
 @Mojo(name = "avro-schema", defaultPhase = LifecyclePhase.COMPILE)
 public class GenerateSchemaMojo extends AbstractMojo {
 
@@ -43,11 +30,8 @@ public class GenerateSchemaMojo extends AbstractMojo {
     @Parameter( property = "nameSpaceSuffix")
     private String nameSpaceSuffix;
 
-
     @Parameter( property = "outputDirectory", defaultValue = "${project.basedir}/src/main/resources/" )
     private String outputDirectory;
-
-
 
     @Parameter( property = "sourceDirectory", defaultValue = "${project.basedir}/target/classes/" )
     private String sourceDirectory;
@@ -57,7 +41,11 @@ public class GenerateSchemaMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-
+        log.info("extension ::: {}", extension);
+        log.info("nameSpacePrefix ::: {}", nameSpacePrefix);
+        log.info("nameSpaceSuffix ::: {}", nameSpaceSuffix);
+        log.info("outputDirectory ::: {}", outputDirectory);
+        log.info("sourceDirectory ::: {}", sourceDirectory);
         File file = new File(sourceDirectory);
         Class<?> cls = null;
         try {
