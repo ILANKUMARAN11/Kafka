@@ -23,7 +23,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  */
 
 @Slf4j
-@Mojo(name = "pojo-to-schema", requiresDependencyResolution = ResolutionScope.TEST, defaultPhase = LifecyclePhase.COMPILE)
+@Mojo(name = "pojo-to-schema", defaultPhase = LifecyclePhase.COMPILE)
 public class GenerateSchemaMojo extends AbstractMojo {
 
     @Parameter( property = "extension", defaultValue = "avsc" )
@@ -41,7 +41,7 @@ public class GenerateSchemaMojo extends AbstractMojo {
 
 
 
-    @Parameter( property = "sourceDirectory", defaultValue = "${project.basedir}/src/main/java/" )
+    @Parameter( property = "sourceDirectory", defaultValue = "${project.basedir}/target/classes/" )
     private String sourceDirectory;
 
     @Override
