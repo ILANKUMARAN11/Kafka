@@ -51,7 +51,7 @@ public class GenerateSchemaMojo extends AbstractMojo {
 
         File file = new File(sourceDirectory);
         Map<String, List<String>> directoryMapping = new HashMap<>();
-        this.getAllFiles(file, directoryMapping);
+        this.getAllFiles(file, directoryMapping, nameSpacePrefix);
         try {
             // Convert File to a URL
             URL url = file.toURI().toURL();          // file:/c:/myclasses/
@@ -72,7 +72,7 @@ public class GenerateSchemaMojo extends AbstractMojo {
                     ProtectionDomain pDomain = cls.getProtectionDomain();
                     CodeSource cSource = pDomain.getCodeSource();
                     URL urlfrom = cSource.getLocation();
-                    log.debug("URL from file :: {}",urlfrom.getFile());
+                    log.debug("URL from file :: {}", urlfrom.getFile());
                 }
             }
         } catch (MalformedURLException e) {
@@ -84,15 +84,16 @@ public class GenerateSchemaMojo extends AbstractMojo {
         }
     }
 
-    private static void getAllFiles(File curDir, Map<String, List<String>> directoryMapping) {
+    private static void getAllFiles(File curDir, Map<String, List<String>> directoryMapping, String nameSpacePrefix) {
         File[] filesList = curDir.listFiles();
         for (File f : filesList) {
             if (f.isDirectory()) {
-                getAllFiles(f, directoryMapping);
+                getAllFiles(f, directoryMapping, nameSpacePrefix);
             }
             if (f.isFile()) {
                 if (f.getName().endsWith(".class") && !f.getName().endsWith("$Builder.class")) {
-                    String packageName = f.getParent().substring(f.getParent().indexOf("target.classes.") + 15);
+                    String folderParent = f.getParent().replace("\\", ".");
+                    String packageName = folderParent.substring(folderParent.indexOf("target.classes.")+ 15);
                     String absolutePath = f.getAbsolutePath().replace("\\", ".");
                     log.debug(f.getName() + " :: " + absolutePath);
                     int indexOfTarget = absolutePath.indexOf("target.classes.") + 15;
@@ -100,15 +101,16 @@ public class GenerateSchemaMojo extends AbstractMojo {
                     int indexOfClass = packageWithClass.indexOf(".class");
                     String className = packageWithClass.substring(0, indexOfClass);
 
-                    if (directoryMapping.containsKey(packageName)) {
-                        List<String> existingPath = directoryMapping.get(packageName);
-                        existingPath.add(className);
-                    } else {
-                        List<String> newPath = new ArrayList<>();
-                        newPath.add(className);
-                        directoryMapping.put(packageName, newPath);
+                    if (!packageName.startsWith(nameSpacePrefix) || packageName.startsWith(nameSpacePrefix)) {
+                        if (directoryMapping.containsKey(packageName)) {
+                            List<String> existingPath = directoryMapping.get(packageName);
+                            existingPath.add(className);
+                        } else {
+                            List<String> newPath = new ArrayList<>();
+                            newPath.add(className);
+                            directoryMapping.put(packageName, newPath);
+                        }
                     }
-
                 }
             }
 
