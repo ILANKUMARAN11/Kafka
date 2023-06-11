@@ -47,12 +47,11 @@ public class GenerateSchemaMojo extends AbstractMojo {
         log.info("nameSpaceSuffix ::: {}", nameSpaceSuffix);
         log.info("outputDirectory ::: {}", outputDirectory);
         log.info("sourceDirectory ::: {}", sourceDirectory);
+        SchemaGenerator schemaGenerator = new SchemaGenerator();
 
         File file = new File(sourceDirectory);
-        Map<String, List<String>> directoryMapping = new HashMap<String, List<String>>();
+        Map<String, List<String>> directoryMapping = new HashMap<>();
         this.getAllFiles(file, directoryMapping);
-        Class<?> cls = null;
-        Class<?> cls1 = null;
         try {
             // Convert File to a URL
             URL url = file.toURI().toURL();          // file:/c:/myclasses/
@@ -62,45 +61,53 @@ public class GenerateSchemaMojo extends AbstractMojo {
             ClassLoader cl = new URLClassLoader(urls);
             // Load in the class; MyClass.class should be located in
             // the directory file:/c:/myclasses/com/mycompany
-            cls = cl.loadClass("pojo.Employee");
-            cls1 = cl.loadClass("pojo.Address");
 
-            ProtectionDomain pDomain = cls.getProtectionDomain();
-            CodeSource cSource = pDomain.getCodeSource();
-            URL urlfrom = cSource.getLocation();
-            System.out.println(urlfrom.getFile());
-
+            for (Map.Entry<String, List<String>> entry : directoryMapping.entrySet()) {
+                String key = entry.getKey();
+                List<String> value = entry.getValue();
+                for (String className : value) {
+                    Class<?> cls = cl.loadClass(className);
+                    schemaGenerator.createAvroSchemaFromClass(cls, null, extension, nameSpacePrefix, nameSpaceSuffix, outputDirectory);
+                    ProtectionDomain pDomain = cls.getProtectionDomain();
+                    CodeSource cSource = pDomain.getCodeSource();
+                    URL urlfrom = cSource.getLocation();
+                    log.debug("URL from file :: {}",urlfrom.getFile());
+                }
+            }
         } catch (MalformedURLException e) {
             log.error("MalformedURLException :: {}", e.getMessage());
         } catch (ClassNotFoundException e) {
             log.error("ClassNotFoundException :: {}", e.getMessage());
-        }
-
-        SchemaGenerator schemaGenerator = new SchemaGenerator();
-        try {
-            schemaGenerator.createAvroSchemaFromClass(cls, null, extension, nameSpacePrefix, nameSpaceSuffix, outputDirectory);
-            schemaGenerator.createAvroSchemaFromClass(cls1, null, extension, nameSpacePrefix, nameSpaceSuffix, outputDirectory);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error("IOException :: {}", e.getMessage());
         }
     }
 
     private static void getAllFiles(File curDir, Map<String, List<String>> directoryMapping) {
         File[] filesList = curDir.listFiles();
         for (File f : filesList) {
-            String absolutePath = f.getAbsolutePath().replace("\\", ".");
-            log.info(f.getName() + " :: " + absolutePath);
-            int indexOfTarget = absolutePath.indexOf("target.classes.") + 15;
-
             if (f.isDirectory()) {
                 getAllFiles(f, directoryMapping);
             }
             if (f.isFile()) {
                 if (f.getName().endsWith(".class") && !f.getName().endsWith("$Builder.class")) {
-
+                    String packageName = f.getParent().substring(f.getParent().indexOf("target.classes.") + 15);
+                    String absolutePath = f.getAbsolutePath().replace("\\", ".");
+                    log.debug(f.getName() + " :: " + absolutePath);
+                    int indexOfTarget = absolutePath.indexOf("target.classes.") + 15;
                     String packageWithClass = absolutePath.substring(indexOfTarget);
                     int indexOfClass = packageWithClass.indexOf(".class");
-                    log.error(packageWithClass.substring(0, indexOfClass));
+                    String className = packageWithClass.substring(0, indexOfClass);
+
+                    if (directoryMapping.containsKey(packageName)) {
+                        List<String> existingPath = directoryMapping.get(packageName);
+                        existingPath.add(className);
+                    } else {
+                        List<String> newPath = new ArrayList<>();
+                        newPath.add(className);
+                        directoryMapping.put(packageName, newPath);
+                    }
+
                 }
             }
 
