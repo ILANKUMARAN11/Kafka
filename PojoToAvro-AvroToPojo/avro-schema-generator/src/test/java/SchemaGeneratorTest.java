@@ -18,7 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import static com.ilan.constant.SchemaConstant.extensionSplitter;
+import static com.ilan.constant.SchemaConstant.*;
 
 
 @Slf4j
@@ -36,8 +36,8 @@ public class SchemaGeneratorTest {
 
         File folder = new File(testResource);
         Arrays.stream(folder.listFiles())
-                .filter(f -> f.getName().endsWith(".avro") || f.getName().endsWith(".avsc"))
-                .peek(f-> log.info(f.getName()+" is deleted"))
+                .filter(f -> f.getName().endsWith(EXTENSION_SPLITTER+AVRO_EXTENSION) || f.getName().endsWith(EXTENSION_SPLITTER+AVRO_EXTENSION))
+                .peek(f -> log.info(f.getName() + " is deleted"))
                 .forEach(File::delete);
 
         avroMapper = AvroMapper.builder()
@@ -52,33 +52,29 @@ public class SchemaGeneratorTest {
     @Test
     @DisplayName("avro extension generate ")
     public void generateAvro() throws IOException, ClassNotFoundException {
-        String extension = "avro";
-
         SchemaGenerator schemaGenerator = new SchemaGenerator();
-        schemaGenerator.createAvroSchemaFromClass(Employee.class, avroMapper, extension, "avro", null, testResource);
-        Assertions.assertTrue(getFileNameFromClass(Employee.class, extension));
+        schemaGenerator.createAvroSchemaFromClass(Employee.class, avroMapper, AVRO_EXTENSION, "avro", null, testResource);
+        Assertions.assertTrue(getFileNameFromClass(Employee.class, AVRO_EXTENSION));
     }
 
     @Test
     @DisplayName("avsc extension generate ")
     public void generateAvsc() throws IOException {
-        String extension = "avsc";
-
         SchemaGenerator schemaGenerator = new SchemaGenerator();
-        schemaGenerator.createAvroSchemaFromClass(Universe.class, avroMapper, extension, "avro", null, testResource);
-        schemaGenerator.createAvroSchemaFromClass(Earth.class, avroMapper, extension, "avro", null, testResource);
-        schemaGenerator.createAvroSchemaFromClass(Mars.class, avroMapper, extension, "avro", null, testResource);
+        schemaGenerator.createAvroSchemaFromClass(Universe.class, avroMapper, AVSC_EXTENSION, "avro", null, testResource);
+        schemaGenerator.createAvroSchemaFromClass(Earth.class, avroMapper, AVSC_EXTENSION, "avro", null, testResource);
+        schemaGenerator.createAvroSchemaFromClass(Mars.class, avroMapper, AVSC_EXTENSION, "avro", null, testResource);
 
-        Assertions.assertTrue(getFileNameFromClass(Universe.class, extension));
-        Assertions.assertTrue(getFileNameFromClass(Earth.class, extension));
-        Assertions.assertTrue(getFileNameFromClass(Mars.class, extension));
+        Assertions.assertTrue(getFileNameFromClass(Universe.class, AVSC_EXTENSION));
+        Assertions.assertTrue(getFileNameFromClass(Earth.class, AVSC_EXTENSION));
+        Assertions.assertTrue(getFileNameFromClass(Mars.class, AVSC_EXTENSION));
     }
 
     Boolean getFileNameFromClass(Class<?> clazz, String extension) {
         String[] className = clazz.getName().split("[.]");
         String lastOne = className[className.length - 1];
-        File tempFile = new File(testResource + lastOne+ extensionSplitter + extension);
-        log.info("File name of the avro generated ::: {}",tempFile.getAbsolutePath());
+        File tempFile = new File(testResource + lastOne + EXTENSION_SPLITTER + extension);
+        log.info("File name of the avro generated ::: {}", tempFile.getAbsolutePath());
         boolean exists = tempFile.exists();
         return exists;
     }
