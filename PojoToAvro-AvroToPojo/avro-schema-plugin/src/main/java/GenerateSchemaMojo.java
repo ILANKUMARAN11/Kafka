@@ -47,6 +47,7 @@ public class GenerateSchemaMojo extends AbstractMojo {
         log.info("nameSpaceSuffix ::: {}", nameSpaceSuffix);
         log.info("outputDirectory ::: {}", outputDirectory);
         log.info("sourceDirectory ::: {}", sourceDirectory);
+        log.info("excludes size ::: {}, excludes list :::  {}", excludes.size(), excludes);
         SchemaGenerator schemaGenerator = new SchemaGenerator();
 
         File file = new File(sourceDirectory);
