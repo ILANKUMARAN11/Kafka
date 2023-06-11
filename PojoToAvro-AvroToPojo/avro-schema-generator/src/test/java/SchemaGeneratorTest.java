@@ -1,6 +1,7 @@
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.dataformat.avro.AvroMapper;
 import com.fasterxml.jackson.dataformat.avro.jsr310.AvroJavaTimeModule;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +18,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import static com.ilan.constant.SchemaConstant.extensionSplitter;
+
+
+@Slf4j
 public class SchemaGeneratorTest {
 
     static AvroMapper avroMapper = null;
@@ -32,7 +37,7 @@ public class SchemaGeneratorTest {
         File folder = new File(testResource);
         Arrays.stream(folder.listFiles())
                 .filter(f -> f.getName().endsWith(".avro") || f.getName().endsWith(".avsc"))
-                .peek(f-> System.out.println(f.getName()+" is deleted"))
+                .peek(f-> log.info(f.getName()+" is deleted"))
                 .forEach(File::delete);
 
         avroMapper = AvroMapper.builder()
@@ -72,7 +77,8 @@ public class SchemaGeneratorTest {
     Boolean getFileNameFromClass(Class<?> clazz, String extension) {
         String[] className = clazz.getName().split("[.]");
         String lastOne = className[className.length - 1];
-        File tempFile = new File(testResource + lastOne + extension);
+        File tempFile = new File(testResource + lastOne+ extensionSplitter + extension);
+        log.info("File name of the avro generated ::: {}",tempFile.getAbsolutePath());
         boolean exists = tempFile.exists();
         return exists;
     }
