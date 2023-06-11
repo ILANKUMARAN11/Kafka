@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.ilan.constant.SchemaConstant.PACKAGE_SPLITTER;
+
 @Slf4j
 public class FileUtils {
 
@@ -18,9 +20,9 @@ public class FileUtils {
             }
             if (f.isFile()) {
                 if (f.getName().endsWith(".class") && !f.getName().endsWith("$Builder.class")) {
-                    String folderParent = f.getParent().replace("\\", ".");
+                    String folderParent = f.getParent().replace("\\", PACKAGE_SPLITTER);
                     String packageName = folderParent.substring(folderParent.indexOf("target.classes.")+ 15);
-                    String absolutePath = f.getAbsolutePath().replace("\\", ".");
+                    String absolutePath = f.getAbsolutePath().replace("\\", PACKAGE_SPLITTER);
                     log.debug(f.getName() + " :: " + absolutePath);
                     int indexOfTarget = absolutePath.indexOf("target.classes.") + 15;
                     String packageWithClass = absolutePath.substring(indexOfTarget);
