@@ -6,8 +6,6 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import com.ilan.service.SchemaGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +14,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
-import java.util.List;
+import java.util.*;
 
 
 @Slf4j
@@ -24,19 +22,19 @@ import java.util.List;
 public class GenerateSchemaMojo extends AbstractMojo {
 
     //private static Logger log = LoggerFactory.getLogger(GenerateSchemaMojo.class);
-    @Parameter( property = "extension", defaultValue = "avsc" )
+    @Parameter(property = "extension", defaultValue = "avsc")
     private String extension;
 
-    @Parameter( property = "nameSpacePrefix", defaultValue = "avro" )
+    @Parameter(property = "nameSpacePrefix", defaultValue = "avro")
     private String nameSpacePrefix;
 
-    @Parameter( property = "nameSpaceSuffix")
+    @Parameter(property = "nameSpaceSuffix")
     private String nameSpaceSuffix;
 
-    @Parameter( property = "outputDirectory", defaultValue = "${project.basedir}/src/main/resources/" )
+    @Parameter(property = "outputDirectory", defaultValue = "${project.basedir}/src/main/resources/")
     private String outputDirectory;
 
-    @Parameter( property = "sourceDirectory", defaultValue = "${project.basedir}/target/classes/" )
+    @Parameter(property = "sourceDirectory", defaultValue = "${project.basedir}/target/classes/")
     private String sourceDirectory;
 
     @Parameter
@@ -49,8 +47,12 @@ public class GenerateSchemaMojo extends AbstractMojo {
         log.info("nameSpaceSuffix ::: {}", nameSpaceSuffix);
         log.info("outputDirectory ::: {}", outputDirectory);
         log.info("sourceDirectory ::: {}", sourceDirectory);
+
         File file = new File(sourceDirectory);
+        Map<String, List<String>> directoryMapping = new HashMap<String, List<String>>();
+        this.getAllFiles(file, directoryMapping);
         Class<?> cls = null;
+        Class<?> cls1 = null;
         try {
             // Convert File to a URL
             URL url = file.toURI().toURL();          // file:/c:/myclasses/
@@ -58,11 +60,10 @@ public class GenerateSchemaMojo extends AbstractMojo {
 
             // Create a new class loader with the directory
             ClassLoader cl = new URLClassLoader(urls);
-            //ClassLoader cl = createDirectoryLoader(sourceDirectory);
-
             // Load in the class; MyClass.class should be located in
             // the directory file:/c:/myclasses/com/mycompany
-            cls = cl.loadClass("pojo.common.Details");
+            cls = cl.loadClass("pojo.Employee");
+            cls1 = cl.loadClass("pojo.Address");
 
             ProtectionDomain pDomain = cls.getProtectionDomain();
             CodeSource cSource = pDomain.getCodeSource();
@@ -70,28 +71,39 @@ public class GenerateSchemaMojo extends AbstractMojo {
             System.out.println(urlfrom.getFile());
 
         } catch (MalformedURLException e) {
-            log.error("MalformedURLException :: {}",e.getMessage());
+            log.error("MalformedURLException :: {}", e.getMessage());
         } catch (ClassNotFoundException e) {
-            log.error("ClassNotFoundException :: {}",e.getMessage());
+            log.error("ClassNotFoundException :: {}", e.getMessage());
         }
 
         SchemaGenerator schemaGenerator = new SchemaGenerator();
         try {
-            schemaGenerator.createAvroSchemaFromClass(cls, null, extension, nameSpacePrefix, nameSpaceSuffix, outputDirectory );
+            schemaGenerator.createAvroSchemaFromClass(cls, null, extension, nameSpacePrefix, nameSpaceSuffix, outputDirectory);
+            schemaGenerator.createAvroSchemaFromClass(cls1, null, extension, nameSpacePrefix, nameSpaceSuffix, outputDirectory);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    /*public static ClassLoader createDirectoryLoader(String directory) throws URISyntaxException, IOException {
-        Collection<URL> urls = new ArrayList<URL>();
-        File dir = new File(directory);
-        File[] files = dir.listFiles();
-        for (File f : files) {
-            System.out.println(f.getCanonicalPath());
-            urls.add(f.toURI().toURL());
-        }
+    private static void getAllFiles(File curDir, Map<String, List<String>> directoryMapping) {
+        File[] filesList = curDir.listFiles();
+        for (File f : filesList) {
+            String absolutePath = f.getAbsolutePath().replace("\\", ".");
+            log.info(f.getName() + " :: " + absolutePath);
+            int indexOfTarget = absolutePath.indexOf("target.classes.") + 15;
 
-        return URLClassLoader.newInstance(urls.toArray(new URL[urls.size()]));
-    }*/
+            if (f.isDirectory()) {
+                getAllFiles(f, directoryMapping);
+            }
+            if (f.isFile()) {
+                if (f.getName().endsWith(".class") && !f.getName().endsWith("$Builder.class")) {
+
+                    String packageWithClass = absolutePath.substring(indexOfTarget);
+                    int indexOfClass = packageWithClass.indexOf(".class");
+                    log.error(packageWithClass.substring(0, indexOfClass));
+                }
+            }
+
+        }
+    }
 }
