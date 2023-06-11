@@ -51,6 +51,11 @@ public class GenerateSchemaMojo extends AbstractMojo {
         log.info("outputDirectory ::: {}", outputDirectory);
         log.info("sourceDirectory ::: {}", sourceDirectory);
         log.info("excludes size ::: {}, excludes list :::  {}", excludes.size(), excludes);
+
+//        if (excludes != null && !excludes.isEmpty()) {
+//            agentOptions
+//                    .setExcludes(StringUtils.join(excludes.iterator(), ":"));
+//        }
         SchemaGenerator schemaGenerator = new SchemaGenerator();
 
         File file = new File(sourceDirectory);

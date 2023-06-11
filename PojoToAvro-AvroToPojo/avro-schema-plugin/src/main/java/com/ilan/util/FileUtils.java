@@ -20,14 +20,8 @@ public class FileUtils {
             }
             if (f.isFile()) {
                 if (f.getName().endsWith(".class") && !f.getName().endsWith("$Builder.class")) {
-                    String folderParent = f.getParent().replace("\\", PACKAGE_SPLITTER);
-                    String packageName = folderParent.substring(folderParent.indexOf("target.classes.")+ 15);
-                    String absolutePath = f.getAbsolutePath().replace("\\", PACKAGE_SPLITTER);
-                    log.debug(f.getName() + " :: " + absolutePath);
-                    int indexOfTarget = absolutePath.indexOf("target.classes.") + 15;
-                    String packageWithClass = absolutePath.substring(indexOfTarget);
-                    int indexOfClass = packageWithClass.indexOf(".class");
-                    String className = packageWithClass.substring(0, indexOfClass);
+                    String packageName = getPackageName(f);
+                    String className = getClassName(f);
 
                     if (!packageName.startsWith(nameSpacePrefix) || packageName.startsWith(nameSpacePrefix)) {
                         if (directoryMapping.containsKey(packageName)) {
@@ -42,5 +36,22 @@ public class FileUtils {
                 }
             }
         }
+    }
+
+    public static String getPackageName(File f) {
+        String folderParent = f.getParent().replace("\\", PACKAGE_SPLITTER);
+        int indexOfTarget = folderParent.indexOf("target.classes.") + 15;
+        String packageName = folderParent.substring(indexOfTarget);
+        return packageName;
+    }
+
+    public static String getClassName(File f) {
+        String absolutePath = f.getAbsolutePath().replace("\\", PACKAGE_SPLITTER);
+        log.debug(f.getName() + " :: " + absolutePath);
+        int indexOfTarget = absolutePath.indexOf("target.classes.") + 15;
+        String packageWithClass = absolutePath.substring(indexOfTarget);
+        int indexOfClass = packageWithClass.indexOf(".class");
+        String className = packageWithClass.substring(0, indexOfClass);
+        return className;
     }
 }
