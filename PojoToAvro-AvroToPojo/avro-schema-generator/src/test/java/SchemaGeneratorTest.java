@@ -36,7 +36,7 @@ public class SchemaGeneratorTest {
 
         File folder = new File(testResource);
         Arrays.stream(folder.listFiles())
-                .filter(f -> f.getName().endsWith(EXTENSION_SPLITTER+AVRO_EXTENSION) || f.getName().endsWith(EXTENSION_SPLITTER+AVRO_EXTENSION))
+                .filter(f -> f.getName().endsWith(EXTENSION_SPLITTER + AVRO_EXTENSION) || f.getName().endsWith(EXTENSION_SPLITTER + AVRO_EXTENSION))
                 .peek(f -> log.info(f.getName() + " is deleted"))
                 .forEach(File::delete);
 

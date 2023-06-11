@@ -43,8 +43,8 @@ public class SchemaGenerator {
         String avroSchemaInJSON = avroSchema.toString(Boolean.TRUE);
 
         String actualNameSpace = avroSchema.getNamespace();
-        String prefixNameSpace = nameSpacePrefix + SchemaConstant.packageSplitter;
-        String suffixNameSpace = SchemaConstant.packageSplitter + nameSpaceSuffix;
+        String prefixNameSpace = nameSpacePrefix + SchemaConstant.PACKAGE_SPLITTER;
+        String suffixNameSpace = SchemaConstant.PACKAGE_SPLITTER + nameSpaceSuffix;
 
         log.info("user has the config package prefix as :: {}" + nameSpacePrefix);
         String overrideNameSpace = prefixNameSpace + avroSchema.getNamespace();
@@ -59,7 +59,7 @@ public class SchemaGenerator {
 
         log.info("outputDirectory {}", outputDirectory);
         //Write to File
-        Path fileName = Path.of(outputDirectory + clazz.getSimpleName() + SchemaConstant.extensionSplitter + extension);
+        Path fileName = Path.of(outputDirectory + clazz.getSimpleName() + SchemaConstant.EXTENSION_SPLITTER + extension);
         Files.writeString(fileName, schemaInAvroNameSpace.toString(Boolean.TRUE));
     }
 }
