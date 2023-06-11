@@ -67,6 +67,7 @@ public class GenerateSchemaMojo extends AbstractMojo {
                 List<String> value = entry.getValue();
                 for (String className : value) {
                     Class<?> cls = cl.loadClass(className);
+                    log.info("Generating schema for Class :: {}", className);
                     schemaGenerator.createAvroSchemaFromClass(cls, null, extension, nameSpacePrefix, nameSpaceSuffix, outputDirectory);
                     ProtectionDomain pDomain = cls.getProtectionDomain();
                     CodeSource cSource = pDomain.getCodeSource();
